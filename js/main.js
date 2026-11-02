@@ -731,9 +731,23 @@ function initParticleCanvas() {
   let isHeroVisible = true;
   let width = 0;
   let height = 0;
-  const PARTICLE_COUNT = 50;
-  const MAX_CONNECT_DISTANCE = 150;
+  const PARTICLE_COUNT = 65;
+  const MAX_CONNECT_DISTANCE = 160;
   const particles = [];
+  const mouse = { x: -1000, y: -1000, active: false };
+
+  heroSection.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+    mouse.active = true;
+  });
+
+  heroSection.addEventListener('mouseleave', () => {
+    mouse.active = false;
+    mouse.x = -1000;
+    mouse.y = -1000;
+  });
 
   // Particle Class Definition
   class Particle {
@@ -744,10 +758,10 @@ function initParticleCanvas() {
     reset(initial = false) {
       this.x = Math.random() * width;
       this.y = initial ? Math.random() * height : height + 10;
-      this.radius = Math.random() * 2 + 1.5; // 1.5px to 3.5px
-      this.speedY = -(Math.random() * 0.5 + 0.3); // Floating upward slowly (-0.3 to -0.8)
+      this.radius = Math.random() * 2 + 1.8; // 1.8px to 3.8px
+      this.speedY = -(Math.random() * 0.5 + 0.3); // Floating upward slowly
       this.speedX = (Math.random() - 0.5) * 0.4; // Subtle horizontal drift
-      this.opacity = Math.random() * 0.4 + 0.3; // 0.3 to 0.7 opacity
+      this.opacity = Math.random() * 0.45 + 0.35; // 0.35 to 0.8 opacity
     }
 
     update() {
@@ -806,12 +820,30 @@ function initParticleCanvas() {
 
         if (dist < MAX_CONNECT_DISTANCE) {
           // Dynamic alpha fades smoothly as distance reaches limit
-          const lineAlpha = (1 - dist / MAX_CONNECT_DISTANCE) * 0.22;
+          const lineAlpha = (1 - dist / MAX_CONNECT_DISTANCE) * 0.35;
           ctx.beginPath();
           ctx.strokeStyle = `rgba(0, 0, 255, ${lineAlpha})`;
-          ctx.lineWidth = 1;
+          ctx.lineWidth = 1.1;
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    // Connect particles to interactive mouse cursor
+    if (mouse.active) {
+      for (let i = 0; i < particles.length; i++) {
+        const dx = particles[i].x - mouse.x;
+        const dy = particles[i].y - mouse.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < 180) {
+          const mouseAlpha = (1 - dist / 180) * 0.45;
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(0, 0, 255, ${mouseAlpha})`;
+          ctx.lineWidth = 1.5;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(mouse.x, mouse.y);
           ctx.stroke();
         }
       }
