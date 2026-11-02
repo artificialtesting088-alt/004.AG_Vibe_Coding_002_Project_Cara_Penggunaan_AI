@@ -2647,10 +2647,10 @@ section.section-alt {
   position: absolute;
   inset: -15% 0;
   background-size: cover;
-  background-position: center 30%;
+  background-position: center 20%;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.85;
+  opacity: 0.90;
   filter: contrast(1.12) saturate(1.25);
   will-change: transform;
 }
