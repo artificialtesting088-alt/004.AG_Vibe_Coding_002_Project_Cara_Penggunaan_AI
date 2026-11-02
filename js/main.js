@@ -466,6 +466,8 @@ function initExpandableCards() {
   const collapseCard = (card) => {
     card.classList.remove('expanded');
     card.setAttribute('aria-expanded', 'false');
+    const icon = card.querySelector('.expand-icon');
+    if (icon) icon.textContent = '+';
     const body = getCardBody(card);
     if (body) {
       body.style.maxHeight = '0px';
@@ -475,6 +477,8 @@ function initExpandableCards() {
   const expandCard = (card) => {
     card.classList.add('expanded');
     card.setAttribute('aria-expanded', 'true');
+    const icon = card.querySelector('.expand-icon');
+    if (icon) icon.textContent = '−';
     const body = getCardBody(card);
     if (body) {
       body.style.maxHeight = `${body.scrollHeight}px`;

@@ -4468,3 +4468,339 @@ section.section-alt {
 .system-tips { margin-top: 2.5rem; background: #F8F9FD; border-radius: 18px; padding: 1.75rem; border: 1px solid var(--border-light); }
 .system-tips h4 { font-size: 1.15rem; font-weight: 700; color: #111111; margin: 0 0 1rem; }
 .expandable-card { cursor: pointer; }
+
+
+/* ==========================================================================
+   FIX FOR RACE CARD HEADER & EXPAND STATE
+   ========================================================================== */
+.race-card {
+  padding: 1.75rem !important;
+}
+
+.race-card-header {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.85rem !important;
+  margin-bottom: 1.25rem !important;
+  padding-bottom: 0.75rem !important;
+  border-bottom: 1px solid var(--border-light) !important;
+  width: 100% !important;
+}
+
+.race-letter {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  background: rgba(0, 0, 255, 0.08) !important;
+  color: #0000FF !important;
+  border: 1px solid rgba(0, 0, 255, 0.22) !important;
+  border-radius: 12px !important;
+  display: grid !important;
+  place-items: center !important;
+  font-size: 1.45rem !important;
+  font-weight: 900 !important;
+  flex-shrink: 0 !important;
+  transition: all 0.3s ease !important;
+}
+
+.race-card:hover .race-letter,
+.race-card.expanded .race-letter {
+  background: #0000FF !important;
+  color: #FFFFFF !important;
+}
+
+.race-card-title {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+}
+
+.race-card-title h3 {
+  font-size: 1.25rem !important;
+  font-weight: 800 !important;
+  color: #111111 !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
+}
+
+.race-card-subtitle {
+  font-size: 0.8rem !important;
+  color: #0000FF !important;
+  font-weight: 600 !important;
+  margin-top: 3px !important;
+  font-family: var(--font-mono) !important;
+  line-height: 1.2 !important;
+  display: block !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  max-width: 100% !important;
+}
+
+.expand-icon {
+  margin-left: auto !important;
+  font-size: 1.15rem !important;
+  font-weight: 800 !important;
+  color: #0000FF !important;
+  background: rgba(0, 0, 255, 0.06) !important;
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  border-radius: 8px !important;
+  display: grid !important;
+  place-items: center !important;
+  transition: all 0.25s ease !important;
+  line-height: 1 !important;
+  flex-shrink: 0 !important;
+}
+
+.race-card.expanded .expand-icon {
+  background: #0000FF !important;
+  color: #FFFFFF !important;
+}
+
+/* Ensure .race-card-body is visible when expanded */
+.race-card.expanded .race-card-body {
+  display: block !important;
+  opacity: 1 !important;
+  max-height: none !important;
+}
+
+/* ==========================================================================
+   ANATOMI CONTEXT WINDOW STYLES
+   ========================================================================== */
+.context-anatomy-block {
+  margin-bottom: 4rem;
+}
+
+.context-anatomy-desc {
+  font-size: 1.1rem;
+  color: #444444;
+  line-height: 1.7;
+  max-width: 900px;
+  margin-bottom: 2rem;
+}
+
+.context-stack-wrapper {
+  background: #0A0E1A;
+  border: 1px solid rgba(0, 0, 255, 0.25);
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15), 0 0 30px rgba(0, 0, 255, 0.08);
+  margin-bottom: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.context-stack-wrapper::before {
+  content: 'CONTEXT WINDOW RAM BUFFER (TOP-TO-BOTTOM TOKEN ALLOCATION)';
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.1em;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
+  padding-bottom: 0.75rem;
+}
+
+.stack-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.stack-layer {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 1.35rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.25s ease;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.stack-layer:hover {
+  transform: translateX(6px);
+  border-color: #0000FF;
+  background: rgba(0, 0, 255, 0.12);
+  box-shadow: 0 4px 18px rgba(0, 0, 255, 0.25);
+}
+
+.layer-system {
+  border-left: 4px solid #0000FF;
+  background: rgba(0, 0, 255, 0.15);
+}
+
+.layer-tools {
+  border-left: 4px solid #1E50FF;
+  background: rgba(30, 80, 255, 0.12);
+}
+
+.layer-docs {
+  border-left: 4px solid #3366FF;
+  background: rgba(51, 102, 255, 0.1);
+}
+
+.layer-memory {
+  border-left: 4px solid #4D7CFF;
+  background: rgba(77, 124, 255, 0.08);
+}
+
+.layer-scratchpad {
+  border-left: 4px solid #6692FF;
+  background: rgba(102, 146, 255, 0.07);
+}
+
+.layer-results {
+  border-left: 4px solid #80A7FF;
+  background: rgba(128, 167, 255, 0.06);
+}
+
+.layer-prompt {
+  border-left: 4px solid #99BDFF;
+  background: rgba(153, 189, 255, 0.08);
+}
+
+.layer-badge {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #8EAEFF;
+  background: rgba(0, 0, 255, 0.35);
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.layer-info {
+  flex: 1;
+}
+
+.layer-info h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0 0 2px;
+}
+
+.layer-info p {
+  font-size: 0.825rem;
+  color: #BAC7E5;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.layer-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #8EAEFF;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.anatomy-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.anatomy-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-light);
+  border-radius: 18px;
+  padding: 1.6rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.anatomy-card:hover {
+  transform: translateY(-5px);
+  border-color: #0000FF;
+  box-shadow: 0 16px 36px rgba(0, 0, 255, 0.1);
+}
+
+.anatomy-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.anatomy-icon {
+  font-size: 1.75rem;
+}
+
+.anatomy-card-header h4 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #111111;
+  margin: 0 0 2px;
+}
+
+.anatomy-type {
+  font-size: 0.75rem;
+  color: #0000FF;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: var(--font-mono);
+}
+
+.anatomy-card > p {
+  font-size: 0.9rem;
+  color: #555555;
+  line-height: 1.55;
+  margin-bottom: 1rem;
+  flex-grow: 1;
+}
+
+.anatomy-example {
+  background: #F8F9FD;
+  border-radius: 10px;
+  padding: 0.75rem 0.85rem;
+  font-size: 0.8rem;
+  color: #333333;
+  border-left: 2px solid #0000FF;
+  line-height: 1.5;
+}
+
+.anatomy-example strong {
+  display: block;
+  font-size: 0.72rem;
+  color: #0000FF;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+  letter-spacing: 0.05em;
+}
+
+.anatomy-example code {
+  font-family: var(--font-mono);
+  font-size: 0.775rem;
+  color: #111111;
+  word-break: break-all;
+}
+
+@media (max-width: 768px) {
+  .stack-layer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .layer-tag {
+    align-self: flex-start;
+  }
+}

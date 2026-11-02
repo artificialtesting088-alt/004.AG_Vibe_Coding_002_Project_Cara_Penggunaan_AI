@@ -89,14 +89,14 @@
       <!-- RACE Cards -->
       <div class="race-grid">
         <!-- R - Role -->
-        <div class="race-card expandable-card reveal" data-reveal="fade-up" data-stagger="0">
+        <div class="race-card expandable-card expanded reveal" data-reveal="fade-up" data-stagger="0">
           <div class="race-card-header">
             <div class="race-letter" style="--accent: #0000FF;">R</div>
             <div class="race-card-title">
               <h3>Role</h3>
-              <p>Siapa AI-nya?</p>
+              <span class="race-card-subtitle">Siapa AI-nya?</span>
             </div>
-            <span class="expand-icon">+</span>
+            <span class="expand-icon">−</span>
           </div>
           <div class="race-card-body">
             <p>Tentukan <strong>persona dan identitas</strong> AI. Role mengaktifkan pengetahuan domain spesifik, kosakata, dan perspektif profesional dalam model.</p>
@@ -123,14 +123,14 @@
         </div>
 
         <!-- A - Action -->
-        <div class="race-card expandable-card reveal" data-reveal="fade-up" data-stagger="1">
+        <div class="race-card expandable-card expanded reveal" data-reveal="fade-up" data-stagger="1">
           <div class="race-card-header">
             <div class="race-letter" style="--accent: #0000FF;">A</div>
             <div class="race-card-title">
               <h3>Action</h3>
-              <p>Apa tugasnya?</p>
+              <span class="race-card-subtitle">Apa tugasnya?</span>
             </div>
-            <span class="expand-icon">+</span>
+            <span class="expand-icon">−</span>
           </div>
           <div class="race-card-body">
             <p>Instruksi <strong>spesifik dan tegas</strong> tentang apa yang harus dilakukan AI. Gunakan kata kerja yang kuat dan jelas — bukan permintaan yang ambigu.</p>
@@ -156,14 +156,14 @@
         </div>
 
         <!-- C - Context -->
-        <div class="race-card expandable-card reveal" data-reveal="fade-up" data-stagger="2">
+        <div class="race-card expandable-card expanded reveal" data-reveal="fade-up" data-stagger="2">
           <div class="race-card-header">
             <div class="race-letter" style="--accent: #0000FF;">C</div>
             <div class="race-card-title">
               <h3>Context</h3>
-              <p>Apa konteksnya?</p>
+              <span class="race-card-subtitle">Apa konteksnya?</span>
             </div>
-            <span class="expand-icon">+</span>
+            <span class="expand-icon">−</span>
           </div>
           <div class="race-card-body">
             <p>Berikan <strong>latar belakang, batasan, dan data</strong> yang dibutuhkan AI. Tanpa konteks, AI mengisi kekosongan dengan asumsi generik.</p>
@@ -196,14 +196,14 @@
         </div>
 
         <!-- E - Expectation -->
-        <div class="race-card expandable-card reveal" data-reveal="fade-up" data-stagger="3">
+        <div class="race-card expandable-card expanded reveal" data-reveal="fade-up" data-stagger="3">
           <div class="race-card-header">
             <div class="race-letter" style="--accent: #0000FF;">E</div>
             <div class="race-card-title">
               <h3>Expectation</h3>
-              <p>Apa yang diharapkan?</p>
+              <span class="race-card-subtitle">Apa yang diharapkan?</span>
             </div>
-            <span class="expand-icon">+</span>
+            <span class="expand-icon">−</span>
           </div>
           <div class="race-card-body">
             <p>Definisikan <strong>format output, standar kualitas, dan kriteria sukses</strong>. Tanpa ekspektasi jelas, AI akan default ke output generik.</p>
@@ -509,6 +509,183 @@ Telemetri:
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+
+      <!-- Anatomi Context Window (What goes into AI Context) -->
+      <div class="context-anatomy-block reveal" data-reveal="fade-up">
+        <h3 class="subsection-title">🧩 Anatomi Context Window: Apa Saja yang Dimasukkan ke AI?</h3>
+        <p class="context-anatomy-desc">
+          Banyak orang mengira AI hanya membaca <em>"prompt"</em> yang kita ketik. Faktanya, dalam <strong>Context Engineering</strong>, apa yang dilihat oleh model AI adalah <strong>seluruh ruang kerja informasi (Context Window)</strong> yang diracik secara dinamis dari <strong>7 komponen utama</strong> sebelum model memprediksi satu token pun:
+        </p>
+
+        <!-- Visual Stack Representation -->
+        <div class="context-stack-wrapper">
+          <div class="stack-visual">
+            <div class="stack-layer layer-system">
+              <div class="layer-badge">Lapisan 1</div>
+              <div class="layer-info">
+                <h4>🏛️ System Prompt & Instructions</h4>
+                <p>Konstitusi permanen: aturan perilaku, persona keahlian, guardrails keamanan, & format output wajib.</p>
+              </div>
+              <span class="layer-tag">Statis / Cached</span>
+            </div>
+
+            <div class="stack-layer layer-tools">
+              <div class="layer-badge">Lapisan 2</div>
+              <div class="layer-info">
+                <h4>🛠️ Tools & Skills Definition (SOP & Schemas)</h4>
+                <p>Kamus fungsi yang bisa dipanggil AI (JSON schema API, SQL, Bash) + panduan prosedur kerja (SKILL.md).</p>
+              </div>
+              <span class="layer-tag">Tool Catalog</span>
+            </div>
+
+            <div class="stack-layer layer-docs">
+              <div class="layer-badge">Lapisan 3</div>
+              <div class="layer-info">
+                <h4>📚 Dokumen Eksternal & Knowledge Base (RAG)</h4>
+                <p>Cuplikan berkas kode, file PDF, data database, atau artikel internal relevan yang di-retrieve secara otomatis.</p>
+              </div>
+              <span class="layer-tag">Retrieved Data</span>
+            </div>
+
+            <div class="stack-layer layer-memory">
+              <div class="layer-badge">Lapisan 4</div>
+              <div class="layer-info">
+                <h4>⏳ Memory & Riwayat Percakapan (Conversation History)</h4>
+                <p>Buffer dialog sebelumnya (sliding window) + ringkasan turn lampau agar AI tidak kehilangan memori konteks.</p>
+              </div>
+              <span class="layer-tag">Multi-Turn Context</span>
+            </div>
+
+            <div class="stack-layer layer-scratchpad">
+              <div class="layer-badge">Lapisan 5</div>
+              <div class="layer-info">
+                <h4>📝 Scratchpad / Working Memory (Catatan Berpikir AI)</h4>
+                <p>Rencana langkah (step-by-step plan), jejak pemikiran (Chain of Thought), & pelacakan status tugas aktif.</p>
+              </div>
+              <span class="layer-tag">Agent State</span>
+            </div>
+
+            <div class="stack-layer layer-results">
+              <div class="layer-badge">Lapisan 6</div>
+              <div class="layer-info">
+                <h4>⚡ Tool Execution Results / Observations</h4>
+                <p>Output nyata dari tools yang baru dijalankan: log error terminal, baris data query SQL, respons API JSON.</p>
+              </div>
+              <span class="layer-tag">Live Observation</span>
+            </div>
+
+            <div class="stack-layer layer-prompt">
+              <div class="layer-badge">Lapisan 7</div>
+              <div class="layer-info">
+                <h4>💬 User Prompt (Instruksi / Query Utama Saat Ini)</h4>
+                <p>Pertanyaan atau perintah baru yang Anda ketik di kolom pesan/chat saat ini.</p>
+              </div>
+              <span class="layer-tag">Active Input</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7 Ingredients Cards Breakdown -->
+        <div class="anatomy-cards-grid">
+          <div class="anatomy-card">
+            <div class="anatomy-card-header">
+              <span class="anatomy-icon">🏛️</span>
+              <div>
+                <h4>1. System Prompt</h4>
+                <span class="anatomy-type">Aturan & Persona</span>
+              </div>
+            </div>
+            <p>Konstitusi model. Menentukan batas wewenang, tone profesional, larangan keras (negative constraints), dan format JSON/Markdown yang diharapkan.</p>
+            <div class="anatomy-example">
+              <strong>Contoh:</strong> <code>"Kamu adalah Senior Database Admin. Jangan pernah drop table. Format jawaban selalu berupa tabel DDL..."</code>
+            </div>
+          </div>
+
+          <div class="anatomy-card">
+            <div class="anatomy-card-header">
+              <span class="anatomy-icon">🛠️</span>
+              <div>
+                <h4>2. Skills & Tool Schemas</h4>
+                <span class="anatomy-type">Kemampuan Eksekusi</span>
+              </div>
+            </div>
+            <p>Bukan sekadar teks bebas, melainkan spesifikasi teknis fungsi yang bisa dieksekusi (JSON schema) dan SOP kerja (SKILL.md) agar model tahu tool apa yang cocok.</p>
+            <div class="anatomy-example">
+              <strong>Contoh:</strong> <code>{"name": "query_postgres", "parameters": {"sql": "SELECT ..."}, "description": "Eksekusi read-only query"}</code>
+            </div>
+          </div>
+
+          <div class="anatomy-card">
+            <div class="anatomy-card-header">
+              <span class="anatomy-icon">📂</span>
+              <div>
+                <h4>3. Dokumen & RAG Data</h4>
+                <span class="anatomy-type">Pengetahuan Grounding</span>
+              </div>
+            </div>
+            <p>Potongan dokumen eksternal yang di-inject ke context window saat runtime: repositori kode, artikel FAQ, manual PDF, atau catatan meeting.</p>
+            <div class="anatomy-example">
+              <strong>Contoh:</strong> File <code>schema.prisma</code> atau kebijakan retur produk 2025 yang diambil dari vector database.
+            </div>
+          </div>
+
+          <div class="anatomy-card">
+            <div class="anatomy-card-header">
+              <span class="anatomy-icon">💬</span>
+              <div>
+                <h4>4. User Prompt</h4>
+                <span class="anatomy-type">Tugas Utama</span>
+              </div>
+            </div>
+            <p>Pemicu aksi saat ini yang diketik oleh pengguna. Disusun menggunakan framework presisi seperti RACE (Role, Action, Context, Expectation).</p>
+            <div class="anatomy-example">
+              <strong>Contoh:</strong> <code>"Refactor fungsi autentikasi berikut agar menggunakan token JWT dengan rotasi kunci..."</code>
+            </div>
+          </div>
+
+          <div class="anatomy-card">
+            <div class="anatomy-card-header">
+              <span class="anatomy-icon">⏳</span>
+              <div>
+                <h4>5. Riwayat Percakapan</h4>
+                <span class="anatomy-type">Memori Dialog</span>
+              </div>
+            </div>
+            <p>Percakapan multi-turn sebelumnya. Karena LLM bersifat <em>stateless</em>, riwayat ini harus dipasok kembali (atau diringkas) agar AI nyambung dengan konteks lalu.</p>
+            <div class="anatomy-example">
+              <strong>Contoh:</strong> <code>"Turn 1: User minta skema DB -> Model beri DDL -> Turn 2: User: 'Tambahkan foreign key user_id'..."</code>
+            </div>
+          </div>
+
+          <div class="anatomy-card">
+            <div class="anatomy-card-header">
+              <span class="anatomy-icon">🧠</span>
+              <div>
+                <h4>6. Scratchpad / State</h4>
+                <span class="anatomy-type">Jejak Penalaran</span>
+              </div>
+            </div>
+            <p>Working memory tempat model merencanakan tindakan (*plan*), merefleksikan kegagalan, dan mencatat checklist langkah yang belum selesai.</p>
+            <div class="anatomy-example">
+              <strong>Contoh:</strong> <code>"Langkah 1 selesai: file auth.ts dibaca. Langkah 2: import bcrypt belum ada, saya harus menambahkan..."</code>
+            </div>
+          </div>
+
+          <div class="anatomy-card">
+            <div class="anatomy-card-header">
+              <span class="anatomy-icon">⚡</span>
+              <div>
+                <h4>7. Hasil Eksekusi Tools</h4>
+                <span class="anatomy-type">Hasil Observasi Live</span>
+              </div>
+            </div>
+            <p>Keluaran nyata dari lingkungan eksternal setelah tool dijalankan: error code terminal, respons HTTP status 200, atau log error yang harus di-triage.</p>
+            <div class="anatomy-example">
+              <strong>Contoh:</strong> <code>[Tool Output: bash] Error: TypeError: Cannot read properties of undefined (reading 'token') at line 42</code>
+            </div>
+          </div>
         </div>
       </div>
 

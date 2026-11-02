@@ -15,6 +15,7 @@ Website tutorial interaktif, mewah, dan komprehensif tentang cara menggunakan Ar
 - **6 Kesalahan Umum & Solusinya**: Flattery fallacy, action bloat, context starvation, dll.
 
 ### 2. 🧠 Context Engineering
+- **Anatomi Lengkap Isi Context Window (7 Komponen)**: Visualisasi buffer RAM context AI (System Prompt, Tool/Skill Schemas, Dokumen RAG, Riwayat Chat/Memory, Scratchpad State, Hasil Eksekusi Tools, dan User Prompt Aktif).
 - **Prompt Engineering vs Context Engineering**: Tabel komparasi mendalam (fokus, temporalitas, sistem, artefak).
 - **5 Pilar Context Engineering**: Context Window Management, Retrieval Augmented Generation (RAG), Memory Systems, Tool Use, Structured Context.
 - **Teknik Lanjutan**: Context Compression (LLMLingua), Hierarchical Context (RAPTOR), Dynamic Context Selection (JIT), dan Context Caching.
