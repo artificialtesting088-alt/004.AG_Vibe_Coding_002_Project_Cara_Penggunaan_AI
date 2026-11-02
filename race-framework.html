@@ -21,6 +21,11 @@
       <a href="index.html" class="nav-logo">
         <span class="logo-icon">◆</span> Menguasai<span class="logo-accent">AI</span>
       </a>
+            <button id="search-trigger" class="nav-search-btn" aria-label="Cari materi">
+        <span class="search-icon">🔍</span>
+        <span class="search-text">Cari...</span>
+        <kbd class="search-kbd">⌘K</kbd>
+      </button>
       <button id="menu-toggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
@@ -382,6 +387,68 @@ Telemetri:
           </div>
         </div>
       </div>
+
+      
+      <!-- ============================== -->
+      <!-- INTERACTIVE: RACE PROMPT STUDIO -->
+      <!-- ============================== -->
+      <div id="prompt-studio" class="studio-section reveal" data-reveal="fade-up">
+        <div class="studio-header">
+          <div class="studio-badge">⚡ FITUR INTERAKTIF</div>
+          <h2 class="studio-title">RACE Live Prompt Studio</h2>
+          <p class="studio-subtitle">Rancang dan rakit prompt industri Anda secara real-time. Pilih preset di bawah atau ketik instruksi Anda sendiri.</p>
+        </div>
+
+        <div class="studio-presets">
+          <button class="preset-chip active" data-preset="backend">💻 Senior Backend Architect</button>
+          <button class="preset-chip" data-preset="copywriter">✍️ B2B SaaS Copywriter</button>
+          <button class="preset-chip" data-preset="datascience">📊 Chief Data Scientist</button>
+          <button class="preset-chip" data-preset="designer">🎨 Lead Product Designer</button>
+        </div>
+
+        <div class="studio-layout">
+          <!-- Input Fields -->
+          <div class="studio-inputs">
+            <div class="studio-field">
+              <label class="field-label" for="studio-role">
+                <span class="field-letter">R</span> Role (Siapa AI-nya?)
+              </label>
+              <textarea id="studio-role" class="studio-textarea" rows="2" placeholder="Persona dan spesialisasi senior model..."></textarea>
+            </div>
+
+            <div class="studio-field">
+              <label class="field-label" for="studio-action">
+                <span class="field-letter">A</span> Action (Apa tugas spesifiknya?)
+              </label>
+              <textarea id="studio-action" class="studio-textarea" rows="2" placeholder="Kata kerja aksi terukur..."></textarea>
+            </div>
+
+            <div class="studio-field">
+              <label class="field-label" for="studio-context">
+                <span class="field-letter">C</span> Context (Latar belakang & batasan?)
+              </label>
+              <textarea id="studio-context" class="studio-textarea" rows="2" placeholder="Tech stack, audiens, dan data pendukung..."></textarea>
+            </div>
+
+            <div class="studio-field">
+              <label class="field-label" for="studio-expectation">
+                <span class="field-letter">E</span> Expectation (Standar format & output?)
+              </label>
+              <textarea id="studio-expectation" class="studio-textarea" rows="2" placeholder="Format schema, tabel, JSON, atau constraints..."></textarea>
+            </div>
+          </div>
+
+          <!-- Real-Time Code Preview -->
+          <div class="studio-preview-col">
+            <div class="preview-top-bar">
+              <span class="preview-title">⚡ Live Assembled Prompt</span>
+              <button id="studio-copy" class="studio-copy-btn">📋 Salin Prompt</button>
+            </div>
+            <div id="studio-preview" class="studio-preview-box"></div>
+          </div>
+        </div>
+      </div>
+
 
       <!-- Common Mistakes -->
       <div class="mistakes-section reveal" data-reveal="fade-up">

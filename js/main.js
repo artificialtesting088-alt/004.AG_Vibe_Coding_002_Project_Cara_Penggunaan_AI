@@ -37,6 +37,12 @@ document.addEventListener('DOMContentLoaded', () => {
   initParticleCanvas();
   initMobileMenu();
   initSmoothScroll();
+  initSpotlightCards();
+  initCommandPalette();
+  initKeyboardNavigation();
+  initPromptStudio();
+  initContextVisualizer();
+  initTemperatureSimulator();
 });
 
 /* ====================================================================
@@ -985,4 +991,513 @@ function initSmoothScroll() {
       }
     });
   });
+}
+
+
+/* ====================================================================
+ * 14. SPOTLIGHT HOVER EFFECT (Linear / Stripe Card Glow)
+ * Tracks cursor position on cards and projects an ambient royal blue glow
+ * ==================================================================== */
+function initSpotlightCards() {
+  const cards = document.querySelectorAll('.module-card, .race-card, .skill-card, .connector-card, .param-card, .studio-card, .bento-card');
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+    });
+  });
+}
+
+/* ====================================================================
+ * 15. GLOBAL COMMAND PALETTE (Cmd + K / Ctrl + K)
+ * Fast keyboard-first search modal for instant navigation across all topics
+ * ==================================================================== */
+const SEARCH_DATABASE = [
+  // Modules
+  { title: "Bab 01: RACE Framework", cat: "Modul Pembelajaran", desc: "Formula 4 pilar Role, Action, Context, Expectation", url: "race-framework.html", icon: "🎯" },
+  { title: "Bab 02: Context Engineering", cat: "Modul Pembelajaran", desc: "Anatomi 7 komponen Context Window & Visual RAM Stack", url: "context-engineering.html", icon: "🧠" },
+  { title: "Bab 03: Teknik Prompting Lanjutan", cat: "Modul Pembelajaran", desc: "Chain of Thought (CoT), Few-Shot vs Zero-Shot, System Prompt", url: "teknik-lanjutan.html", icon: "🔗" },
+  { title: "Bab 04: AI Skills & Workflows", cat: "Modul Pembelajaran", desc: "Tools vs Skills, 8 Kategori, Autonomous Chaining Workflow", url: "ai-skills.html", icon: "⚡" },
+  { title: "Bab 05: Connectors & MCP", cat: "Modul Pembelajaran", desc: "Model Context Protocol Anthropic, Database & API Integration", url: "connectors.html", icon: "🔌" },
+  { title: "Bab 06: Parameter Tuning", cat: "Modul Pembelajaran", desc: "Temperature, Top-P Nucleus Sampling, Penalties", url: "parameter.html", icon: "🎛️" },
+  // Topics & Deep Dives
+  { title: "Role (RACE)", cat: "Framework & Pilar", desc: "Kondisikan persona, domain prior, & senioritas model AI", url: "race-framework.html", icon: "👤" },
+  { title: "Action (RACE)", cat: "Framework & Pilar", desc: "Kata kerja operasional terukur dan instruksi decisive", url: "race-framework.html", icon: "⚡" },
+  { title: "Context (RACE)", cat: "Framework & Pilar", desc: "Grounding lingkungan teknis, target audience & data input", url: "race-framework.html", icon: "🌐" },
+  { title: "Expectation (RACE)", cat: "Framework & Pilar", desc: "Output schema, format baku, dan batasan negatif", url: "race-framework.html", icon: "📋" },
+  { title: "Interactive RACE Prompt Studio", cat: "Fitur Interaktif", desc: "Live studio untuk merancang & menyalin prompt RACE secara instan", url: "race-framework.html#prompt-studio", icon: "🛠️" },
+  { title: "Anatomi 7 Komponen Context Window", cat: "Context Engineering", desc: "System Prompt, Skills, RAG Docs, Memory, Scratchpad, Tool Buffer, User Prompt", url: "context-engineering.html", icon: "📦" },
+  { title: "Simulator Alokasi Token & RAM Window", cat: "Fitur Interaktif", desc: "Visualisasi interaktif pembagian memori token 128k - 1M", url: "context-engineering.html#context-visualizer", icon: "📊" },
+  { title: "Prompt Engineering vs Context Engineering", cat: "Konsep Kunci", desc: "Tabel komparasi mendalam perbedaan paradigma PE vs CE", url: "context-engineering.html", icon: "⚖️" },
+  { title: "Chain of Thought (CoT & ReAct)", cat: "Teknik Lanjutan", desc: "Penalaran langkah demi langkah (Step-by-step reasoning)", url: "teknik-lanjutan.html", icon: "🔗" },
+  { title: "Few-Shot vs Zero-Shot Learning", cat: "Teknik Lanjutan", desc: "Kapan menggunakan contoh input-output vs instruksi langsung", url: "teknik-lanjutan.html", icon: "🎯" },
+  { title: "Blueprint System Prompt Production-Ready", cat: "Teknik Lanjutan", desc: "Arsitektur 6 bagian system prompt kelas industri", url: "teknik-lanjutan.html", icon: "⚙️" },
+  { title: "Model Context Protocol (MCP) Deep Dive", cat: "Integrasi & Tools", desc: "Standar protokol industri Anthropic: Resources, Tools, Prompts", url: "connectors.html", icon: "🔌" },
+  { title: "Contoh Konfigurasi mcp_config.json", cat: "Kode & Config", desc: "Template JSON untuk GitHub, Postgres, dan Filesystem", url: "connectors.html", icon: "📝" },
+  { title: "Simulator Interaktif Temperature", cat: "Fitur Interaktif", desc: "Slider interaktif untuk menguji respon deterministik vs kreatif", url: "parameter.html#temp-simulator", icon: "🌡️" },
+  { title: "Top-P (Nucleus Sampling) & Penalties", cat: "Parameter AI", desc: "Mengatur keragaman kata dan mencegah pengulangan token", url: "parameter.html", icon: "🎚️" }
+];
+
+function initCommandPalette() {
+  if (!document.getElementById('command-modal')) {
+    const modalHTML = `
+      <div id="command-modal" class="command-modal" aria-hidden="true">
+        <div class="command-backdrop"></div>
+        <div class="command-dialog">
+          <div class="command-header">
+            <span class="command-search-icon">🔍</span>
+            <input type="text" id="command-input" class="command-input" placeholder="Cari materi, teknik, contoh prompt, atau modul... (Esc untuk menutup)" autocomplete="off">
+            <button id="command-close" class="command-close-btn" aria-label="Tutup pencarian">Esc</button>
+          </div>
+          <div class="command-results" id="command-results"></div>
+          <div class="command-footer">
+            <div class="footer-hint"><span><kbd>↑</kbd> <kbd>↓</kbd> Pilih</span><span><kbd>↵</kbd> Buka</span><span><kbd>Esc</kbd> Tutup</span></div>
+            <div class="footer-count" id="command-count">21 topik tersedia</div>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+  }
+
+  const modal = document.getElementById('command-modal');
+  const input = document.getElementById('command-input');
+  const resultsContainer = document.getElementById('command-results');
+  const countEl = document.getElementById('command-count');
+  const searchTriggers = document.querySelectorAll('.nav-search-btn, #search-trigger');
+  const backdrop = modal.querySelector('.command-backdrop');
+  const closeBtn = document.getElementById('command-close');
+
+  let activeIndex = 0;
+  let currentResults = [];
+
+  const openModal = () => {
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    input.value = '';
+    renderResults('');
+    setTimeout(() => input.focus(), 50);
+  };
+
+  const closeModal = () => {
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  };
+
+  const renderResults = (query) => {
+    const q = query.trim().toLowerCase();
+    currentResults = q === '' 
+      ? SEARCH_DATABASE 
+      : SEARCH_DATABASE.filter(item => 
+          item.title.toLowerCase().includes(q) || 
+          item.desc.toLowerCase().includes(q) ||
+          item.cat.toLowerCase().includes(q)
+        );
+
+    activeIndex = 0;
+    countEl.textContent = `${currentResults.length} hasil ditemukan`;
+
+    if (currentResults.length === 0) {
+      resultsContainer.innerHTML = `
+        <div class="command-empty">
+          <span class="empty-icon">🔎</span>
+          <p>Tidak ada hasil untuk "<strong>${escapeHTML(query)}</strong>"</p>
+          <span class="empty-sub">Coba cari "RACE", "Context", "CoT", "MCP", atau "Temperature"</span>
+        </div>
+      `;
+      return;
+    }
+
+    resultsContainer.innerHTML = currentResults.map((item, idx) => `
+      <a href="${item.url}" class="command-item ${idx === 0 ? 'selected' : ''}" data-index="${idx}">
+        <span class="item-icon">${item.icon}</span>
+        <div class="item-text">
+          <div class="item-title">${highlightText(item.title, q)}</div>
+          <div class="item-desc">${highlightText(item.desc, q)}</div>
+        </div>
+        <span class="item-cat">${item.cat}</span>
+      </a>
+    `).join('');
+
+    resultsContainer.querySelectorAll('.command-item').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        resultsContainer.querySelectorAll('.command-item').forEach(i => i.classList.remove('selected'));
+        el.classList.add('selected');
+        activeIndex = parseInt(el.getAttribute('data-index'), 10);
+      });
+      el.addEventListener('click', () => closeModal());
+    });
+  };
+
+  const highlightText = (text, query) => {
+    if (!query) return text;
+    const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    return text.replace(regex, '<mark class="highlight">$1</mark>');
+  };
+
+  const escapeHTML = (str) => {
+    const p = document.createElement('p');
+    p.textContent = str;
+    return p.innerHTML;
+  };
+
+  input.addEventListener('input', (e) => {
+    renderResults(e.target.value);
+  });
+
+  input.addEventListener('keydown', (e) => {
+    const items = resultsContainer.querySelectorAll('.command-item');
+    if (!items.length) return;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      activeIndex = (activeIndex + 1) % items.length;
+      updateSelected(items);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      activeIndex = (activeIndex - 1 + items.length) % items.length;
+      updateSelected(items);
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (items[activeIndex]) {
+        items[activeIndex].click();
+        window.location.href = items[activeIndex].getAttribute('href');
+      }
+    } else if (e.key === 'Escape') {
+      closeModal();
+    }
+  });
+
+  const updateSelected = (items) => {
+    items.forEach((item, idx) => {
+      if (idx === activeIndex) {
+        item.classList.add('selected');
+        item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      } else {
+        item.classList.remove('selected');
+      }
+    });
+  };
+
+  searchTriggers.forEach(btn => btn.addEventListener('click', openModal));
+  backdrop.addEventListener('click', closeModal);
+  closeBtn.addEventListener('click', closeModal);
+
+  document.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      if (modal.classList.contains('active')) {
+        closeModal();
+      } else {
+        openModal();
+      }
+    }
+  });
+}
+
+/* ====================================================================
+ * 16. KEYBOARD NAVIGATION BETWEEN CHAPTERS
+ * Press Left Arrow or [ to go to previous chapter
+ * Press Right Arrow or ] to go to next chapter
+ * ==================================================================== */
+function initKeyboardNavigation() {
+  const prevBtn = document.querySelector('.chapter-btn:not(.next)');
+  const nextBtn = document.querySelector('.chapter-btn.next');
+
+  if (!prevBtn && !nextBtn) return;
+
+  if (!document.getElementById('keyboard-hint')) {
+    const hint = document.createElement('div');
+    hint.id = 'keyboard-hint';
+    hint.className = 'keyboard-hint';
+    hint.innerHTML = '<span><kbd>←</kbd> <kbd>→</kbd> Navigasi Bab</span><span><kbd>⌘K</kbd> Cari</span>';
+    document.body.appendChild(hint);
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+    const modal = document.getElementById('command-modal');
+    if (modal && modal.classList.contains('active')) return;
+
+    if (e.key === 'ArrowLeft' || e.key === '[') {
+      if (prevBtn) {
+        e.preventDefault();
+        window.location.href = prevBtn.getAttribute('href');
+      }
+    } else if (e.key === 'ArrowRight' || e.key === ']') {
+      if (nextBtn) {
+        e.preventDefault();
+        window.location.href = nextBtn.getAttribute('href');
+      }
+    }
+  });
+}
+
+/* ====================================================================
+ * 17. INTERACTIVE RACE PROMPT STUDIO (on race-framework.html)
+ * Live interactive prompt builder with presets and real-time preview
+ * ==================================================================== */
+function initPromptStudio() {
+  const studio = document.getElementById('prompt-studio');
+  if (!studio) return;
+
+  const roleInput = document.getElementById('studio-role');
+  const actionInput = document.getElementById('studio-action');
+  const contextInput = document.getElementById('studio-context');
+  const expectationInput = document.getElementById('studio-expectation');
+  const previewBox = document.getElementById('studio-preview');
+  const copyBtn = document.getElementById('studio-copy');
+  const presetBtns = studio.querySelectorAll('.preset-chip');
+
+  const PRESETS = {
+    backend: {
+      role: "Principal Backend Engineer & Clean Architecture Specialist dengan 10+ tahun pengalaman.",
+      action: "Refactor modul pembayaran berikut menjadi pola Clean Architecture / Ports and Adapters.",
+      context: "Framework: Node.js/TypeScript dengan PostgreSQL. Sistem melayani 200 req/detik dan membutuhkan zero downtime.",
+      expectation: "Berikan: (1) Arsitektur folder, (2) Kode implementasi interface & repository, (3) Unit test Jest komprehensif, (4) Analisis perbandingan sebelum & sesudah."
+    },
+    copywriter: {
+      role: "Head of Growth & B2B SaaS Conversion Copywriter kelas dunia.",
+      action: "Tuliskan landing page copy lengkap dengan framework PAS (Problem-Agitate-Solution).",
+      context: "Produk: AI Code Review Tool untuk tim engineering enterprise yang ingin memangkas PR review time hingga 60%.",
+      expectation: "Output: (1) Hero H1 + subheadline, (2) 3 value proposition bullets, (3) Social proof callout, (4) CTA primer & sekunder dengan microcopy meyakinkan."
+    },
+    datascience: {
+      role: "Lead Data Scientist & Customer Retention Strategist.",
+      action: "Analisis dataset churn cohort ini dan rekomendasikan 3 intervensi algoritmik.",
+      context: "SaaS B2B dengan 15.000 pelanggan aktif. Churn meningkat dari 2.1% menjadi 4.8% pada cohort bulan ke-3 pasca onboarding.",
+      expectation: "Format: Tabel feature importance, metrik korelasi, model prediksi rekomendasi (XGBoost vs Logistic), dan action plan prioritas tinggi."
+    },
+    designer: {
+      role: "Staff Product Designer & Accessibility (WCAG 2.1 AAA) Specialist.",
+      action: "Audit alur checkout 3-langkah berikut dan rancang optimasi frictionless checkout.",
+      context: "Aplikasi e-commerce mobile-first dengan cart abandonment rate 42% pada langkah pengisian alamat dan metode pembayaran.",
+      expectation: "Daftar rekomendasi UX visual: (1) Wireframe ASCII layout per langkah, (2) Micro-interaction copy, (3) Aturan kontras & touch target min 48x48px."
+    }
+  };
+
+  const updatePreview = () => {
+    const r = roleInput.value.trim() || "Tentukan role...";
+    const a = actionInput.value.trim() || "Tentukan action...";
+    const c = contextInput.value.trim() || "Tentukan context...";
+    const e = expectationInput.value.trim() || "Tentukan expectation...";
+
+    previewBox.innerHTML = `
+<span class="prompt-tag tag-role">[ROLE]</span>
+${escapeStudioHTML(r)}
+
+<span class="prompt-tag tag-action">[ACTION]</span>
+${escapeStudioHTML(a)}
+
+<span class="prompt-tag tag-context">[CONTEXT]</span>
+${escapeStudioHTML(c)}
+
+<span class="prompt-tag tag-expectation">[EXPECTATION]</span>
+${escapeStudioHTML(e)}
+    `.trim();
+  };
+
+  const escapeStudioHTML = (str) => {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  };
+
+  [roleInput, actionInput, contextInput, expectationInput].forEach(inp => {
+    if (inp) inp.addEventListener('input', updatePreview);
+  });
+
+  presetBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      presetBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const pKey = btn.getAttribute('data-preset');
+      const data = PRESETS[pKey];
+      if (data) {
+        roleInput.value = data.role;
+        actionInput.value = data.action;
+        contextInput.value = data.context;
+        expectationInput.value = data.expectation;
+        updatePreview();
+      }
+    });
+  });
+
+  if (copyBtn) {
+    copyBtn.addEventListener('click', () => {
+      const fullPrompt = `[ROLE]
+${roleInput.value.trim()}
+
+[ACTION]
+${actionInput.value.trim()}
+
+[CONTEXT]
+${contextInput.value.trim()}
+
+[EXPECTATION]
+${expectationInput.value.trim()}`;
+      navigator.clipboard.writeText(fullPrompt).then(() => {
+        const origText = copyBtn.innerHTML;
+        copyBtn.innerHTML = '✓ Prompt Berhasil Disalin!';
+        copyBtn.classList.add('copied');
+        setTimeout(() => {
+          copyBtn.innerHTML = origText;
+          copyBtn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+  }
+
+  // Initial render with default preset
+  if (presetBtns[0]) presetBtns[0].click();
+}
+
+/* ====================================================================
+ * 18. INTERACTIVE CONTEXT WINDOW RAM BUFFER SIMULATOR (on context-engineering.html)
+ * Interactive token allocation breakdown across 7 ingredients
+ * ==================================================================== */
+function initContextVisualizer() {
+  const container = document.getElementById('context-visualizer');
+  if (!container) return;
+
+  const presetBtns = container.querySelectorAll('.scenario-btn');
+  const barSystem = document.getElementById('seg-system');
+  const barTools = document.getElementById('seg-tools');
+  const barDocs = document.getElementById('seg-docs');
+  const barMemory = document.getElementById('seg-memory');
+  const barScratch = document.getElementById('seg-scratch');
+  const barLive = document.getElementById('seg-live');
+  const barPrompt = document.getElementById('seg-prompt');
+  const totalTokensEl = document.getElementById('vis-total-tokens');
+  const windowLimitEl = document.getElementById('vis-window-limit');
+
+  const CONFIGS = {
+    coding: {
+      limit: '128,000 Tokens (Claude 3.5 Sonnet / GPT-4o)',
+      total: '84,500 Tokens Terpakai (66% Kapasitas)',
+      shares: { system: 4, tools: 14, docs: 35, memory: 20, scratch: 8, live: 14, prompt: 5 }
+    },
+    rag: {
+      limit: '200,000 Tokens (Claude 3.5 Sonnet Enterprise)',
+      total: '162,000 Tokens Terpakai (81% Kapasitas)',
+      shares: { system: 3, tools: 5, docs: 60, memory: 15, scratch: 5, live: 7, prompt: 5 }
+    },
+    agent: {
+      limit: '1,000,000 Tokens (Gemini 1.5 Pro / Flash)',
+      total: '430,000 Tokens Terpakai (43% Kapasitas)',
+      shares: { system: 2, tools: 18, docs: 28, memory: 22, scratch: 12, live: 14, prompt: 4 }
+    }
+  };
+
+  const applyConfig = (key) => {
+    const cfg = CONFIGS[key];
+    if (!cfg) return;
+
+    if (totalTokensEl) totalTokensEl.textContent = cfg.total;
+    if (windowLimitEl) windowLimitEl.textContent = cfg.limit;
+
+    if (barSystem) { barSystem.style.width = `${cfg.shares.system}%`; barSystem.title = `System Prompts: ${cfg.shares.system}%`; }
+    if (barTools) { barTools.style.width = `${cfg.shares.tools}%`; barTools.title = `Tools Schema: ${cfg.shares.tools}%`; }
+    if (barDocs) { barDocs.style.width = `${cfg.shares.docs}%`; barDocs.title = `RAG Documents: ${cfg.shares.docs}%`; }
+    if (barMemory) { barMemory.style.width = `${cfg.shares.memory}%`; barMemory.title = `Memory: ${cfg.shares.memory}%`; }
+    if (barScratch) { barScratch.style.width = `${cfg.shares.scratch}%`; barScratch.title = `Scratchpad: ${cfg.shares.scratch}%`; }
+    if (barLive) { barLive.style.width = `${cfg.shares.live}%`; barLive.title = `Tool Output: ${cfg.shares.live}%`; }
+    if (barPrompt) { barPrompt.style.width = `${cfg.shares.prompt}%`; barPrompt.title = `User Prompt: ${cfg.shares.prompt}%`; }
+  };
+
+  presetBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      presetBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyConfig(btn.getAttribute('data-scenario'));
+    });
+  });
+
+  applyConfig('coding');
+}
+
+/* ====================================================================
+ * 19. INTERACTIVE TEMPERATURE & MODEL CONTROL SIMULATOR (on parameter.html)
+ * Live temperature slider updating behavior mode and response simulation
+ * ==================================================================== */
+function initTemperatureSimulator() {
+  const container = document.getElementById('temp-simulator');
+  if (!container) return;
+
+  const slider = document.getElementById('temp-slider');
+  const valDisplay = document.getElementById('temp-value-display');
+  const modeBadge = document.getElementById('temp-mode-badge');
+  const outputBox = document.getElementById('temp-sim-output');
+  const gaugeFill = document.getElementById('temp-gauge-fill');
+
+  const SAMPLES = {
+    deterministic: {
+      mode: "🔒 Mode Deterministik (0.0 - 0.2)",
+      badgeClass: "mode-deterministic",
+      text: `// Output Deterministik & Presisi Tinggi (Temperature 0.0)
+function calculateCacheKey(namespace: string, id: string): string {
+  if (!namespace || !id) {
+    throw new InvalidArgumentException("Namespace and ID must be non-empty strings");
+  }
+  return \`cache:\${namespace.toLowerCase()}:\${id.trim()}\`;
+}
+// Karakteristik: Nol halusinasi, deterministik 100%, jawaban identik setiap kali dieksekusi.`
+    },
+    balanced: {
+      mode: "⚖️ Mode Seimbang & Alami (0.3 - 0.7)",
+      badgeClass: "mode-balanced",
+      text: `Dalam arsitektur backend, caching adalah mekanisme penyimpanan sementara data di media berkecepatan tinggi (seperti RAM Redis atau Memcached).
+
+Tujuan utamanya:
+1. Memangkas latency respons (dari ~80ms query SQL menjadi <2ms cache hit).
+2. Menghindari database bottleneck pada traffic puncak.
+
+Strategi populer mencakup Cache-Aside (Lazy Loading) dan Write-Through.`
+    },
+    creative: {
+      mode: "💡 Mode Kreatif & Ideasi (0.8 - 1.2)",
+      badgeClass: "mode-creative",
+      text: `Bayangkan caching seperti barista langganan yang sudah hafal racikan kopi espresso Anda tanpa Anda perlu membaca ulang seluruh daftar menu setiap pagi.
+
+Dalam dunia sistem terdistribusi, caching adalah 'ingatan kilat' yang mencegah CPU lelah mengulang pertanyaan yang sama berulang kali ke rak gudang database yang jauh.`
+    },
+    wild: {
+      mode: "🌪️ Mode Eksperimental & Acak (1.3 - 1.5)",
+      badgeClass: "mode-wild",
+      text: `Caching adalah teleportasi quantum informasi melintasi jurang keterlambatan clock cycle! Sebuah prisma cahaya di mana probabilitas bit dipadatkan menjadi kristal kecepatan murni sebelum waktu sempat merambat di kabel tembaga!`
+    }
+  };
+
+  const updateSimulation = (tempVal) => {
+    const val = parseFloat(tempVal);
+    valDisplay.textContent = val.toFixed(1);
+
+    const pct = (val / 1.5) * 100;
+    gaugeFill.style.width = `${pct}%`;
+
+    let data;
+    if (val <= 0.2) {
+      data = SAMPLES.deterministic;
+      gaugeFill.style.background = '#0000FF';
+    } else if (val <= 0.7) {
+      data = SAMPLES.balanced;
+      gaugeFill.style.background = 'linear-gradient(90deg, #0000FF, #0088FF)';
+    } else if (val <= 1.2) {
+      data = SAMPLES.creative;
+      gaugeFill.style.background = 'linear-gradient(90deg, #0088FF, #FF6600)';
+    } else {
+      data = SAMPLES.wild;
+      gaugeFill.style.background = 'linear-gradient(90deg, #FF6600, #FF0055)';
+    }
+
+    modeBadge.textContent = data.mode;
+    modeBadge.className = `temp-mode-badge ${data.badgeClass}`;
+    outputBox.textContent = data.text;
+  };
+
+  slider.addEventListener('input', (e) => updateSimulation(e.target.value));
+  updateSimulation(slider.value);
 }

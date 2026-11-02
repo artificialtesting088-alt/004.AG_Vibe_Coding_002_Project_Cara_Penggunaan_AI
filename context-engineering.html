@@ -21,6 +21,11 @@
       <a href="index.html" class="nav-logo">
         <span class="logo-icon">◆</span> Menguasai<span class="logo-accent">AI</span>
       </a>
+            <button id="search-trigger" class="nav-search-btn" aria-label="Cari materi">
+        <span class="search-icon">🔍</span>
+        <span class="search-text">Cari...</span>
+        <kbd class="search-kbd">⌘K</kbd>
+      </button>
       <button id="menu-toggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
@@ -277,6 +282,58 @@
           </div>
         </div>
       </div>
+
+      
+      <!-- ============================== -->
+      <!-- INTERACTIVE: CONTEXT RAM SIMULATOR -->
+      <!-- ============================== -->
+      <div id="context-visualizer" class="context-vis-section reveal" data-reveal="fade-up">
+        <div class="studio-header">
+          <div class="studio-badge">🧠 SIMULATOR INTERAKTIF</div>
+          <h2 class="studio-title">Simulator Alokasi RAM Context Window</h2>
+          <p class="studio-subtitle">Pilih skenario use case di bawah untuk melihat bagaimana memori context window dibagi secara proporsional antara 7 komponen inti.</p>
+        </div>
+
+        <div class="scenario-chips">
+          <button class="scenario-btn active" data-scenario="coding">💻 Coding Assistant (128k)</button>
+          <button class="scenario-btn" data-scenario="rag">📚 Enterprise RAG Q&A (200k)</button>
+          <button class="scenario-btn" data-scenario="agent">🤖 Autonomous Orchestrator (1M)</button>
+        </div>
+
+        <!-- Stacked Dynamic Bar -->
+        <div class="stacked-ram-bar">
+          <div id="seg-system" class="ram-segment seg-1" style="width: 4%;"></div>
+          <div id="seg-tools" class="ram-segment seg-2" style="width: 14%;"></div>
+          <div id="seg-docs" class="ram-segment seg-3" style="width: 35%;"></div>
+          <div id="seg-memory" class="ram-segment seg-4" style="width: 20%;"></div>
+          <div id="seg-scratch" class="ram-segment seg-5" style="width: 8%;"></div>
+          <div id="seg-live" class="ram-segment seg-6" style="width: 14%;"></div>
+          <div id="seg-prompt" class="ram-segment seg-7" style="width: 5%;"></div>
+        </div>
+
+        <div class="vis-stats-row">
+          <div class="vis-stat-box">
+            <strong>Batas Context Window Model</strong>
+            <span id="vis-window-limit">128,000 Tokens (GPT-4o / Claude 3.5 Sonnet)</span>
+          </div>
+          <div class="vis-stat-box">
+            <strong>Estimasi Total Alokasi</strong>
+            <span id="vis-total-tokens">84,500 Tokens Terpakai (66% Kapasitas)</span>
+          </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="vis-legend-grid">
+          <div class="legend-card"><span class="legend-dot seg-1"></span> 01. System & Guardrails</div>
+          <div class="legend-card"><span class="legend-dot seg-2"></span> 02. Skills & Tool Schemas</div>
+          <div class="legend-card"><span class="legend-dot seg-3"></span> 03. RAG Documents</div>
+          <div class="legend-card"><span class="legend-dot seg-4"></span> 04. Conversation Memory</div>
+          <div class="legend-card"><span class="legend-dot seg-5"></span> 05. Scratchpad State</div>
+          <div class="legend-card"><span class="legend-dot seg-6"></span> 06. Live Tool Output Buffer</div>
+          <div class="legend-card"><span class="legend-dot seg-7"></span> 07. Active User Prompt</div>
+        </div>
+      </div>
+
 
       <!-- 5 Pillars -->
       <div class="pillars-section">

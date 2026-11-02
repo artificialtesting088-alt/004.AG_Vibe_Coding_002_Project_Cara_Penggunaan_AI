@@ -21,6 +21,11 @@
       <a href="index.html" class="nav-logo">
         <span class="logo-icon">◆</span> Menguasai<span class="logo-accent">AI</span>
       </a>
+            <button id="search-trigger" class="nav-search-btn" aria-label="Cari materi">
+        <span class="search-icon">🔍</span>
+        <span class="search-text">Cari...</span>
+        <kbd class="search-kbd">⌘K</kbd>
+      </button>
       <button id="menu-toggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
@@ -84,6 +89,49 @@
           </div>
         </div>
       </div>
+
+      
+      <!-- ============================== -->
+      <!-- INTERACTIVE: TEMPERATURE SIMULATOR -->
+      <!-- ============================== -->
+      <div id="temp-simulator" class="temp-sim-section reveal" data-reveal="fade-up">
+        <div class="studio-header">
+          <div class="studio-badge">🌡️ SIMULATOR INTERAKTIF</div>
+          <h2 class="studio-title">Uji Pengaruh Nilai Temperature</h2>
+          <p class="studio-subtitle">Geser slider di bawah secara langsung untuk melihat pergeseran gaya jawaban AI: dari deterministik kaku hingga metafora kreatif.</p>
+        </div>
+
+        <div class="temp-control-card">
+          <div class="temp-slider-header">
+            <div>
+              <strong style="display:block; font-size:1.1rem; color:#111111;">Parameter Temperature:</strong>
+              <span id="temp-mode-badge" class="temp-mode-badge mode-balanced">⚖️ Mode Seimbang & Alami (0.3 - 0.7)</span>
+            </div>
+            <div id="temp-value-display" class="temp-val-badge">0.7</div>
+          </div>
+
+          <div class="temp-gauge-bar">
+            <div id="temp-gauge-fill" class="temp-gauge-fill" style="width: 46%;"></div>
+          </div>
+
+          <input type="range" id="temp-slider" class="temp-slider-input" min="0" max="1.5" step="0.1" value="0.7">
+          <div class="temp-slider-scale">
+            <span>0.0 (Presisi/Koding)</span>
+            <span>0.5 (Seimbang)</span>
+            <span>1.0 (Kreatif)</span>
+            <span>1.5 (Eksperimental)</span>
+          </div>
+        </div>
+
+        <div class="temp-output-card">
+          <div class="temp-output-header">
+            <span>PROMPT: "Jelaskan konsep caching dalam sistem backend"</span>
+            <span>SIMULASI OUTPUT</span>
+          </div>
+          <div id="temp-sim-output" class="temp-sim-output"></div>
+        </div>
+      </div>
+
 
       <!-- Parameter Table -->
       <div class="param-table-section reveal" data-reveal="fade-up">
