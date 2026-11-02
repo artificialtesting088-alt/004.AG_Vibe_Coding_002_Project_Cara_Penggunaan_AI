@@ -86,109 +86,108 @@
         <p class="section-subtitle">Framework 4 pilar untuk menulis prompt yang presisi dan menghasilkan output berkualitas tinggi.</p>
       </div>
 
-      <!-- RACE Cards -->
+      <!-- RACE Cards (Spacious 2x2 Layout) -->
       <div class="race-grid">
         <!-- R - Role -->
-        <div class="race-card expandable-card expanded reveal" data-reveal="fade-up" data-stagger="0">
+        <div class="race-card reveal" data-reveal="fade-up" data-stagger="0">
           <div class="race-card-header">
             <div class="race-letter" style="--accent: #0000FF;">R</div>
-            <div class="race-card-title">
-              <h3>Role</h3>
-              <span class="race-card-subtitle">Siapa AI-nya?</span>
+            <div class="race-header-text">
+              <div class="race-title-row">
+                <h3 class="race-title">Role</h3>
+                <span class="race-badge-question">Siapa AI-nya?</span>
+              </div>
+              <p class="race-header-desc">Kondisikan persona, domain prior, & tingkat senioritas profesional model</p>
             </div>
-            <span class="expand-icon">−</span>
           </div>
           <div class="race-card-body">
-            <p>Tentukan <strong>persona dan identitas</strong> AI. Role mengaktifkan pengetahuan domain spesifik, kosakata, dan perspektif profesional dalam model.</p>
+            <p class="race-body-intro">Role mengaktifkan kluster pengetahuan spesifik, kosakata industri, dan cara berpikir pakar domain di dalam model AI.</p>
             <div class="race-tip">
-              <span class="tip-badge">Tips</span>
-              <p>Spesifik soal keahlian dan senioritas, bukan sekadar jabatan generik. Hindari sanjungan berlebihan — fokus pada metodologi dan domain.</p>
+              <span class="tip-badge">Tips Pro</span>
+              <p>Sebutkan domain dan metodologi spesifik (misal: "Principal Backend Engineer"), bukan sanjungan kosong ("programmer terhebat").</p>
             </div>
             <div class="race-examples">
-              <h4>Contoh Role yang Efektif:</h4>
+              <h4>Contoh Implementasi Prompt:</h4>
               <div class="code-block">
                 <button class="copy-btn" aria-label="Salin kode">Salin</button>
-                <pre><code>✅ "Kamu adalah Principal Backend Engineer yang spesialisasi 
-   di sistem terdistribusi high-throughput menggunakan Go 
-   dan PostgreSQL."
+                <pre><code>✅ "Kamu adalah Principal Backend Engineer yang spesialisasi di sistem terdistribusi high-throughput menggunakan Go dan PostgreSQL."
 
-✅ "Kamu adalah konsultan data analytics dengan 15 tahun 
-   pengalaman di industri e-commerce."
+✅ "Kamu adalah konsultan data analytics dengan 15 tahun pengalaman di industri e-commerce."
 
-❌ "Kamu adalah programmer jenius terhebat di dunia."
-   (Sanjungan tidak meningkatkan kualitas output)</code></pre>
+❌ "Kamu adalah programmer jenius terhebat di dunia." (Sanjungan tidak menaikkan kualitas output)</code></pre>
               </div>
             </div>
           </div>
         </div>
 
         <!-- A - Action -->
-        <div class="race-card expandable-card expanded reveal" data-reveal="fade-up" data-stagger="1">
+        <div class="race-card reveal" data-reveal="fade-up" data-stagger="1">
           <div class="race-card-header">
-            <div class="race-letter" style="--accent: #0000FF;">A</div>
-            <div class="race-card-title">
-              <h3>Action</h3>
-              <span class="race-card-subtitle">Apa tugasnya?</span>
+            <div class="race-letter" style="--accent: #0038FF;">A</div>
+            <div class="race-header-text">
+              <div class="race-title-row">
+                <h3 class="race-title">Action</h3>
+                <span class="race-badge-question">Apa tugasnya?</span>
+              </div>
+              <p class="race-header-desc">Instruksi kata kerja operasional yang decisive, presisi, dan terukur</p>
             </div>
-            <span class="expand-icon">−</span>
           </div>
           <div class="race-card-body">
-            <p>Instruksi <strong>spesifik dan tegas</strong> tentang apa yang harus dilakukan AI. Gunakan kata kerja yang kuat dan jelas — bukan permintaan yang ambigu.</p>
+            <p class="race-body-intro">Gunakan kata kerja kuat yang memperjelas tugas akhir. Hindari instruksi ambigu yang memaksa AI menebak maksud Anda.</p>
             <div class="race-tip">
-              <span class="tip-badge">Tips</span>
-              <p>Gunakan satu kata kerja utama yang decisive. Jika tugas kompleks, pecah menjadi langkah-langkah bernomor.</p>
+              <span class="tip-badge">Tips Pro</span>
+              <p>Gunakan satu kata kerja tindakan utama. Jika tugas kompleks, pecah menjadi langkah bernomor 1, 2, 3.</p>
             </div>
             <div class="race-examples">
-              <h4>Contoh Action yang Efektif:</h4>
+              <h4>Contoh Implementasi Prompt:</h4>
               <div class="code-block">
                 <button class="copy-btn" aria-label="Salin kode">Salin</button>
-                <pre><code>✅ "Refactor route handler Express berikut menjadi arsitektur 
-   berlapis dengan validasi Zod dan caching Redis."
+                <pre><code>✅ "Refactor route handler Express berikut menjadi arsitektur berlapis dengan validasi Zod dan caching Redis."
 
-✅ "Lakukan gap analysis yang membandingkan checkout flow 
-   kita dengan pattern friction-reduction milik Stripe."
+✅ "Lakukan gap analysis yang membandingkan checkout flow kita dengan pattern friction-reduction milik Stripe."
 
-❌ "Bantu saya dengan kode ini."
-   (Terlalu ambigu — bantu bagaimana?)</code></pre>
+❌ "Bantu saya dengan kode ini." (Terlalu ambigu — bantu dalam hal apa?)</code></pre>
               </div>
             </div>
           </div>
         </div>
 
         <!-- C - Context -->
-        <div class="race-card expandable-card expanded reveal" data-reveal="fade-up" data-stagger="2">
+        <div class="race-card reveal" data-reveal="fade-up" data-stagger="2">
           <div class="race-card-header">
-            <div class="race-letter" style="--accent: #0000FF;">C</div>
-            <div class="race-card-title">
-              <h3>Context</h3>
-              <span class="race-card-subtitle">Apa konteksnya?</span>
+            <div class="race-letter" style="--accent: #0018CC;">C</div>
+            <div class="race-header-text">
+              <div class="race-title-row">
+                <h3 class="race-title">Context</h3>
+                <span class="race-badge-question">Apa konteksnya?</span>
+              </div>
+              <p class="race-header-desc">Latar belakang teknis, batasan bisnis, target pembaca, dan data input</p>
             </div>
-            <span class="expand-icon">−</span>
           </div>
           <div class="race-card-body">
-            <p>Berikan <strong>latar belakang, batasan, dan data</strong> yang dibutuhkan AI. Tanpa konteks, AI mengisi kekosongan dengan asumsi generik.</p>
+            <p class="race-body-intro">Tanpa konteks, AI akan mengisi kekosongan dengan asumsi umum yang belum tentu cocok untuk kasus spesifik Anda.</p>
             <div class="race-tip">
-              <span class="tip-badge">Tips</span>
-              <p>Gunakan "Tes Rekan Baru" — bayangkan kolega baru yang qualified bergabung hari ini, konteks apa yang dia butuhkan untuk menyelesaikan tugas tanpa bertanya 10 pertanyaan?</p>
+              <span class="tip-badge">Tips Pro</span>
+              <p>Terapkan <em>"Tes Rekan Baru"</em>: informasi apa yang wajib diketahui rekan kerja baru agar tugas ini selesai tanpa banyak bertanya?</p>
             </div>
             <div class="race-examples">
-              <h4>4 Elemen Context:</h4>
-              <div class="context-elements">
+              <h4>4 Elemen Konteks Wajib:</h4>
+              <div class="context-elements-grid">
                 <div class="ctx-elem">
                   <span class="ctx-icon">👥</span>
-                  <strong>Audience</strong> — Siapa pembacanya?
+                  <div><strong>Audience:</strong> Siapa pembaca / target pengguna akhir?</div>
                 </div>
                 <div class="ctx-elem">
                   <span class="ctx-icon">🏢</span>
-                  <strong>Environment</strong> — Tech stack, bisnis model?
+                  <div><strong>Environment:</strong> Tech stack, skala traffic, aturan bisnis?</div>
                 </div>
                 <div class="ctx-elem">
                   <span class="ctx-icon">📄</span>
-                  <strong>Input Data</strong> — Kode, log, data yang relevan
+                  <div><strong>Input Data:</strong> Cuplikan kode, skema JSON, log telemetri?</div>
                 </div>
                 <div class="ctx-elem">
                   <span class="ctx-icon">🎯</span>
-                  <strong>Situasi</strong> — Kenapa tugas ini penting sekarang?
+                  <div><strong>Situasi:</strong> Mengapa tugas ini krusial diselesaikan sekarang?</div>
                 </div>
               </div>
             </div>
@@ -196,35 +195,32 @@
         </div>
 
         <!-- E - Expectation -->
-        <div class="race-card expandable-card expanded reveal" data-reveal="fade-up" data-stagger="3">
+        <div class="race-card reveal" data-reveal="fade-up" data-stagger="3">
           <div class="race-card-header">
-            <div class="race-letter" style="--accent: #0000FF;">E</div>
-            <div class="race-card-title">
-              <h3>Expectation</h3>
-              <span class="race-card-subtitle">Apa yang diharapkan?</span>
+            <div class="race-letter" style="--accent: #0055FF;">E</div>
+            <div class="race-header-text">
+              <div class="race-title-row">
+                <h3 class="race-title">Expectation</h3>
+                <span class="race-badge-question">Apa yang diharapkan?</span>
+              </div>
+              <p class="race-header-desc">Format output spesifik, kriteria evaluasi kualitas, & batasan negatif</p>
             </div>
-            <span class="expand-icon">−</span>
           </div>
           <div class="race-card-body">
-            <p>Definisikan <strong>format output, standar kualitas, dan kriteria sukses</strong>. Tanpa ekspektasi jelas, AI akan default ke output generik.</p>
+            <p class="race-body-intro">Kunci eliminasi output generik: tentukan format (tabel, JSON, bullet), panjang maksimal, serta apa yang <strong>TIDAK boleh</strong> ada.</p>
             <div class="race-tip">
-              <span class="tip-badge">Tips</span>
-              <p>Sertakan juga "negative constraints" — hal yang TIDAK boleh ada. Contoh: "Jangan gunakan basa-basi pembuka", "Hindari jargon marketing".</p>
+              <span class="tip-badge">Tips Pro</span>
+              <p>Selalu sertakan <em>Negative Constraints</em>, misal: "Tanpa basa-basi pembuka", "Jangan gunakan library pihak ketiga".</p>
             </div>
             <div class="race-examples">
-              <h4>Contoh Expectation yang Efektif:</h4>
+              <h4>Contoh Implementasi Prompt:</h4>
               <div class="code-block">
                 <button class="copy-btn" aria-label="Salin kode">Salin</button>
-                <pre><code>✅ "Output dalam format tabel Markdown dengan 4 kolom:
-   [Inisiatif | Target Metrik | Effort | Expected Lift].
-   Maksimal 500 kata. Tanpa basa-basi."
+                <pre><code>✅ "Output berupa tabel Markdown 4 kolom: [Inisiatif | Target Metrik | Effort | Expected Lift]. Maksimal 500 kata. Tanpa basa-basi pembuka."
 
-✅ "Berikan kode TypeScript lengkap yang production-ready
-   dengan error handling, JSDoc comments, dan unit test.
-   Pastikan complexity O(n) dan lulus ESLint."
+✅ "Berikan kode TypeScript production-ready dengan error handling, JSDoc, dan unit test Vitest. Complexity O(n)."
 
-❌ "Buat yang bagus dan profesional."
-   (Terlalu subjektif — bagus menurut siapa?)</code></pre>
+❌ "Buat yang bagus dan profesional." (Terlalu subjektif dan tidak terukur)</code></pre>
               </div>
             </div>
           </div>
