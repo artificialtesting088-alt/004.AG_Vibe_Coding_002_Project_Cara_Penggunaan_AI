@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Skills & Autonomous Workflows — Panduan Lengkap Menguasai AI</title>
+  <meta name="description" content="Memahami perbedaan mendasar tools vs skills, 8 kategori keahlian agent otonom, dan implementasi workflow chaining otomatis.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress"></div>
+
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon">◆</span> Menguasai<span class="logo-accent">AI</span>
+      </a>
+      <button id="menu-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="race-framework.html" class="nav-link">RACE Framework</a></li>
+        <li><a href="context-engineering.html" class="nav-link">Context Engineering</a></li>
+        <li><a href="teknik-lanjutan.html" class="nav-link">Teknik Lanjutan</a></li>
+        <li><a href="ai-skills.html" class="nav-link">AI Skills</a></li>
+        <li><a href="connectors.html" class="nav-link">Connectors</a></li>
+        <li><a href="parameter.html" class="nav-link">Parameter</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Subpage Hero Banner -->
+  <header class="subpage-hero">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Beranda</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>Bab 04: AI Skills</span>
+      </div>
+      <div class="subpage-badge">MODUL 04 • AGENTIC CAPABILITIES</div>
+      <h1 class="subpage-title">AI Skills & Autonomous Workflows</h1>
+      <p class="subpage-subtitle">Ubah LLM dari chatbot pasif menjadi agen proaktif yang mampu berpikir mandiri, memilih tools, dan menyelesaikan alur kerja multi-langkah.</p>
+      <div class="subpage-meta">
+        <div class="meta-item">⏱️ Waktu baca: ~9 menit</div><div class="meta-item">⚡ Tingkat: Menengah</div><div class="meta-item">🛠️ 8 Kategori Skills</div><div class="meta-item">🔄 Chaining Workflow Otomatis</div>
+      </div>
+    </div>
+  </header>
+<section id="skills" class="section skills-section">
+    <div class="container">
+
+      <div class="skills-intro reveal" data-reveal="fade-up">
+        <div class="skills-distinction">
+          <div class="dist-item">
+            <div class="dist-icon">🤖</div>
+            <h4>Tools = "Tangan"</h4>
+            <p>Fungsi yang bisa dieksekusi: <code>execute_sql</code>, <code>send_email</code>, <code>write_file</code></p>
+          </div>
+          <div class="dist-divider">vs</div>
+          <div class="dist-item">
+            <div class="dist-icon">🧠</div>
+            <h4>Skills = "Otak"</h4>
+            <p>Prosedur, heuristik, dan workflow yang memandu <em>cara</em> agent menggunakan tools</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-card reveal" data-reveal="fade-up" data-stagger="0">
+          <div class="skill-icon">💻</div>
+          <h4>Code Generation & Engineering</h4>
+          <p>Menulis, debug, refactor, dan optimasi kode dalam berbagai bahasa pemrograman.</p>
+          <ul class="skill-list">
+            <li>Boilerplate generation & scaffolding</li>
+            <li>Bug triage & debugging</li>
+            <li>Test generation (TDD)</li>
+            <li>CI/CD pipeline authoring</li>
+          </ul>
+        </div>
+
+        <div class="skill-card reveal" data-reveal="fade-up" data-stagger="1">
+          <div class="skill-icon">🔬</div>
+          <h4>Analysis & Research</h4>
+          <p>Evaluasi struktural mendalam, penemuan root cause, dan riset multi-sumber.</p>
+          <ul class="skill-list">
+            <li>Root cause analysis</li>
+            <li>Competitive intelligence</li>
+            <li>Literature & paper synthesis</li>
+            <li>Trend identification</li>
+          </ul>
+        </div>
+
+        <div class="skill-card reveal" data-reveal="fade-up" data-stagger="2">
+          <div class="skill-icon">✏️</div>
+          <h4>Creative Writing & Content</h4>
+          <p>Generasi konten kreatif yang disesuaikan dengan audience, tone, dan brand voice.</p>
+          <ul class="skill-list">
+            <li>Blog posts & articles</li>
+            <li>Marketing copy & taglines</li>
+            <li>Technical documentation</li>
+            <li>Executive summaries</li>
+          </ul>
+        </div>
+
+        <div class="skill-card reveal" data-reveal="fade-up" data-stagger="3">
+          <div class="skill-icon">📊</div>
+          <h4>Data Processing</h4>
+          <p>Transformasi input tidak terstruktur menjadi schema terstruktur yang actionable.</p>
+          <ul class="skill-list">
+            <li>PDF & table parsing</li>
+            <li>Entity extraction (NER)</li>
+            <li>Data cleaning & normalization</li>
+            <li>Schema translation (XML→JSON)</li>
+          </ul>
+        </div>
+
+        <div class="skill-card reveal" data-reveal="fade-up" data-stagger="4">
+          <div class="skill-icon">🧮</div>
+          <h4>Problem Solving & Reasoning</h4>
+          <p>Pemecahan masalah kompleks dengan reasoning logis dan analisis multi-langkah.</p>
+          <ul class="skill-list">
+            <li>Mathematical computation</li>
+            <li>Logical deduction</li>
+            <li>Decision support</li>
+            <li>Strategic planning</li>
+          </ul>
+        </div>
+
+        <div class="skill-card reveal" data-reveal="fade-up" data-stagger="5">
+          <div class="skill-icon">🌐</div>
+          <h4>Communication & Language</h4>
+          <p>Komunikasi lintas bahasa dan adaptasi pesan untuk berbagai konteks.</p>
+          <ul class="skill-list">
+            <li>Translation (100+ bahasa)</li>
+            <li>Tone adjustment</li>
+            <li>Summarization</li>
+            <li>Grammar & style correction</li>
+          </ul>
+        </div>
+
+        <div class="skill-card reveal" data-reveal="fade-up" data-stagger="6">
+          <div class="skill-icon">🎨</div>
+          <h4>Design & Visual</h4>
+          <p>Deskripsi desain UI/UX, wireframe, diagram, dan rekomendasi visual.</p>
+          <ul class="skill-list">
+            <li>Wireframe descriptions</li>
+            <li>Diagram creation (Mermaid)</li>
+            <li>Color palette suggestions</li>
+            <li>Layout recommendations</li>
+          </ul>
+        </div>
+
+        <div class="skill-card reveal" data-reveal="fade-up" data-stagger="7">
+          <div class="skill-icon">⚡</div>
+          <h4>Automation & Workflow</h4>
+          <p>Orkestrasi tugas kompleks, scheduling, dan optimasi proses berulang.</p>
+          <ul class="skill-list">
+            <li>Task scheduling</li>
+            <li>Script automation</li>
+            <li>CI/CD configuration</li>
+            <li>Process optimization</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Skill Combination Example -->
+      <div class="skill-combo reveal" data-reveal="fade-up">
+        <h3 class="subsection-title">🔗 Contoh Kombinasi Skill</h3>
+        <div class="combo-flow">
+          <div class="combo-step">
+            <span class="combo-num">1</span>
+            <div class="combo-content">
+              <strong>Security Audit Skill</strong>
+              <p>Baca source diff → identifikasi SQL injection → kategorisasi CWE</p>
+            </div>
+          </div>
+          <div class="combo-arrow">→</div>
+          <div class="combo-step">
+            <span class="combo-num">2</span>
+            <div class="combo-content">
+              <strong>Code Generation Skill</strong>
+              <p>Generate parameterized query replacement → preserve code patterns</p>
+            </div>
+          </div>
+          <div class="combo-arrow">→</div>
+          <div class="combo-step">
+            <span class="combo-num">3</span>
+            <div class="combo-content">
+              <strong>Test Verification Skill</strong>
+              <p>Tulis unit test → reproduksi exploit → run test suite → validasi fix</p>
+            </div>
+          </div>
+          <div class="combo-arrow">→</div>
+          <div class="combo-step">
+            <span class="combo-num">4</span>
+            <div class="combo-content">
+              <strong>Technical Writing Skill</strong>
+              <p>Generate PR description → risk assessment → changelog entry</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="container">
+    <nav class="chapter-nav">
+      <a href="teknik-lanjutan.html" class="chapter-btn">← Bab 03: Teknik Lanjutan</a>
+      <a href="connectors.html" class="chapter-btn next">Lanjut ke Bab 05: Connectors & MCP →</a>
+    </nav>
+  </div>
+
+  <!-- ============================== -->
+  <!-- FOOTER -->
+  <!-- ============================== -->
+  <footer id="footer" class="footer-section">
+    <div class="container">
+      <div class="footer-summary reveal" data-reveal="fade-up">
+        <h2 class="footer-title">Ringkasan — 5 Kunci Menguasai AI</h2>
+        <div class="summary-grid">
+          <div class="summary-item">
+            <span class="summary-num">01</span>
+            <p><strong>Gunakan RACE Framework</strong> — Structure setiap prompt dengan Role, Action, Context, Expectation.</p>
+          </div>
+          <div class="summary-item">
+            <span class="summary-num">02</span>
+            <p><strong>Engineer Context, bukan hanya Prompt</strong> — Rancang seluruh ekosistem informasi di sekitar model.</p>
+          </div>
+          <div class="summary-item">
+            <span class="summary-num">03</span>
+            <p><strong>Kuasai teknik lanjutan</strong> — Chain of Thought, Few-Shot, dan System Prompt yang terstruktur.</p>
+          </div>
+          <div class="summary-item">
+            <span class="summary-num">04</span>
+            <p><strong>Leverage Skills & Connectors</strong> — Kombinasikan skills modular dan hubungkan AI ke tools via MCP.</p>
+          </div>
+          <div class="summary-item">
+            <span class="summary-num">05</span>
+            <p><strong>Tune parameter sesuai tugas</strong> — Low temperature untuk kode, tinggi untuk brainstorming.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-cta reveal" data-reveal="fade-up">
+        <p class="cta-text">Sekarang Anda punya semua bekal. Mulai praktik!</p>
+        <a href="#" class="footer-btn">Kembali ke Atas ↑</a>
+      </div>
+
+      <div class="footer-bottom">
+        <p>Anti Gravity Project — Panduan Cara Menggunakan AI © 2025</p>
+        <p class="footer-link">
+          <a href="https://github.com/artificialtesting088-alt/004.Anti_Gravity_002_Project_Cara_Penggunaan_AI" target="_blank" rel="noopener">
+            GitHub Repository ↗
+          </a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

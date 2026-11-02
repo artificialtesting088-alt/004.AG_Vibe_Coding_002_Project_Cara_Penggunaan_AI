@@ -268,6 +268,16 @@ function initStickyNavigation() {
   const navbar = document.getElementById('navbar');
   if (!navbar) return;
 
+  // Multi-page: Automatically set active class based on current page file
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  const allNavLinks = navbar.querySelectorAll('.nav-link');
+  allNavLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    if (href === currentPage || (currentPage === '' && href === 'index.html')) {
+      link.classList.add('active');
+    }
+  });
+
   const navLinks = navbar.querySelectorAll('a[href^="#"]');
   const sections = [];
 

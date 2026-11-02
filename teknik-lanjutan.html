@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teknik Prompting Lanjutan — Panduan Lengkap Menguasai AI</title>
+  <meta name="description" content="Kuasai Chain of Thought (CoT), perbandingan komparatif Few-Shot vs Zero-Shot, dan arsitektur pembuatan System Prompt kelas produksi.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress"></div>
+
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon">◆</span> Menguasai<span class="logo-accent">AI</span>
+      </a>
+      <button id="menu-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="race-framework.html" class="nav-link">RACE Framework</a></li>
+        <li><a href="context-engineering.html" class="nav-link">Context Engineering</a></li>
+        <li><a href="teknik-lanjutan.html" class="nav-link">Teknik Lanjutan</a></li>
+        <li><a href="ai-skills.html" class="nav-link">AI Skills</a></li>
+        <li><a href="connectors.html" class="nav-link">Connectors</a></li>
+        <li><a href="parameter.html" class="nav-link">Parameter</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Subpage Hero Banner -->
+  <header class="subpage-hero">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Beranda</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>Bab 03: Teknik Lanjutan</span>
+      </div>
+      <div class="subpage-badge">MODUL 03 • ADVANCED REASONING</div>
+      <h1 class="subpage-title">Teknik Prompting Lanjutan</h1>
+      <p class="subpage-subtitle">Trik dan metodologi mutakhir untuk memaksimalkan daya penalaran logis, konsistensi output, dan determinisme model AI modern.</p>
+      <div class="subpage-meta">
+        <div class="meta-item">⏱️ Waktu baca: ~10 menit</div><div class="meta-item">🔗 Tingkat: Menengah</div><div class="meta-item">⚡ 3 Tab Interaktif (CoT, Few-Shot, System Prompt)</div><div class="meta-item">📋 Template Siap Pakai</div>
+      </div>
+    </div>
+  </header>
+<section id="techniques" class="section techniques-section">
+    <div class="container">
+
+      <div class="tab-container reveal" data-reveal="fade-up">
+        <div class="tab-nav">
+          <button class="tab-btn active" data-tab="tab-cot">🔗 Chain of Thought</button>
+          <button class="tab-btn" data-tab="tab-fewshot">🎯 Few-Shot vs Zero-Shot</button>
+          <button class="tab-btn" data-tab="tab-system">⚙️ System Prompt</button>
+        </div>
+
+        <!-- Tab: Chain of Thought -->
+        <div class="tab-content active" id="tab-cot">
+          <div class="tab-inner">
+            <h3>Chain of Thought (CoT) Prompting</h3>
+            <p>Teknik yang menginstruksikan AI untuk <strong>"berpikir langkah demi langkah"</strong> sebelum memberikan jawaban akhir. Ini memaksa model memecah masalah kompleks menjadi langkah reasoning berurutan.</p>
+            
+            <div class="cot-variants">
+              <div class="cot-card">
+                <h4>Zero-Shot CoT</h4>
+                <p>Cukup tambahkan "Pikirkan langkah demi langkah" — tanpa contoh.</p>
+                <div class="code-block">
+                  <button class="copy-btn">Salin</button>
+                  <pre><code>Selesaikan masalah ini. Pikirkan langkah demi langkah.
+
+Toko menjual apel Rp5.000/buah dan jeruk Rp8.000/buah.
+Jika saya beli 5 apel dan 3 jeruk, lalu punya kupon 
+diskon 10%, berapa yang harus saya bayar?</code></pre>
+                </div>
+              </div>
+              <div class="cot-card">
+                <h4>Few-Shot CoT</h4>
+                <p>Berikan contoh reasoning step-by-step sebelum masalah sebenarnya.</p>
+              </div>
+              <div class="cot-card">
+                <h4>Tree of Thoughts (ToT)</h4>
+                <p>Generalisasi CoT menjadi tree search — explore beberapa jalur reasoning, evaluasi, pilih yang terbaik.</p>
+              </div>
+              <div class="cot-card">
+                <h4>ReAct (Reasoning + Acting)</h4>
+                <p>Interleaving langkah berpikir dan bertindak:</p>
+                <p class="react-flow">Thought → Action → Observation → Thought → Final Answer</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: Few-Shot -->
+        <div class="tab-content" id="tab-fewshot">
+          <div class="tab-inner">
+            <h3>Few-Shot vs Zero-Shot Prompting</h3>
+            
+            <div class="comparison-cards">
+              <div class="comp-card">
+                <div class="comp-header zero-shot">Zero-Shot</div>
+                <div class="comp-body">
+                  <p><strong>Definisi:</strong> Instruksi langsung tanpa contoh input/output.</p>
+                  <p><strong>Kapan pakai:</strong> Tugas umum, creative writing, task yang model sudah "tahu".</p>
+                  <p><strong>Kelebihan:</strong> Hemat token, cepat, tanpa risiko bias contoh.</p>
+                  <div class="code-block">
+                    <button class="copy-btn">Salin</button>
+                    <pre><code>Terjemahkan "Selamat pagi, apa kabar?" ke bahasa Jepang.</code></pre>
+                  </div>
+                </div>
+              </div>
+              <div class="comp-card">
+                <div class="comp-header few-shot">Few-Shot</div>
+                <div class="comp-body">
+                  <p><strong>Definisi:</strong> Berikan 1-5 contoh pola input/output sebelum tugas sebenarnya.</p>
+                  <p><strong>Kapan pakai:</strong> Format custom, domain spesifik, konsistensi output.</p>
+                  <p><strong>Kelebihan:</strong> Konsistensi luar biasa, handle edge case.</p>
+                  <div class="code-block">
+                    <button class="copy-btn">Salin</button>
+                    <pre><code>Klasifikasikan sentimen review berikut:
+
+Review: "Makanannya luar biasa enak!"
+Sentimen: Positif
+
+Review: "Pelayanan buruk, tunggu 45 menit."
+Sentimen: Negatif
+
+Review: "Biasa saja, tidak ada yang istimewa."
+Sentimen: Netral
+
+Review: "Pengalaman terbaik yang pernah saya alami!"
+Sentimen:</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="fewshot-tips">
+              <h4>Tips Memilih Exemplar:</h4>
+              <ul>
+                <li><strong>Diversitas &gt; Volume:</strong> 3 contoh diverse yang cover edge case lebih baik dari 10 contoh seragam.</li>
+                <li><strong>Urutan penting:</strong> LLM punya recency bias — taruh contoh paling representatif tepat sebelum prompt sebenarnya.</li>
+                <li><strong>Distribusi seimbang:</strong> Untuk klasifikasi, pastikan setiap kelas terwakili rata.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: System Prompt -->
+        <div class="tab-content" id="tab-system">
+          <div class="tab-inner">
+            <h3>Struktur System Prompt yang Optimal</h3>
+            <p>System prompt adalah "konstitusi" AI — mendefinisikan identitas, batasan operasional, dan standar output.</p>
+            
+            <div class="code-block large">
+              <button class="copy-btn">Salin</button>
+              <pre><code><span class="code-label"># 1. ROLE & IDENTITY</span>
+Kamu adalah expert Security Engineer Assistant yang 
+spesialisasi di static application security testing (SAST).
+
+<span class="code-label"># 2. CORE CAPABILITIES & TOOLS</span>
+Kamu punya akses ke search, file reading, dan bash execution.
+Gunakan tools untuk investigasi codebase sebelum menjawab.
+
+<span class="code-label"># 3. OPERATIONAL WORKFLOW</span>
+1. Analisis inquiry user.
+2. Inspeksi file repository yang relevan.
+3. Identifikasi vulnerability terhadap OWASP Top 10.
+4. Usulkan remediation patch dengan penjelasan.
+
+<span class="code-label"># 4. CONSTRAINTS & GUARDRAILS</span>
+- JANGAN execute command yang modify git history tanpa 
+  konfirmasi.
+- Jika vulnerability uncertain, nyatakan confidence level.
+- JANGAN PERNAH membuat-buat library version atau API 
+  parameter.
+
+<span class="code-label"># 5. OUTPUT FORMAT</span>
+Return semua vulnerability assessment dalam JSON schema:
+```json
+{
+  "cwe_id": "string",
+  "severity": "LOW | MEDIUM | HIGH | CRITICAL",
+  "file": "string",
+  "line": "number",
+  "remediation": "string"
+}
+```</code></pre>
+            </div>
+
+            <div class="system-tips">
+              <h4>Aturan Kunci System Prompt:</h4>
+              <div class="tips-grid">
+                <div class="tip-item">
+                  <span class="tip-num">1</span>
+                  <p><strong>Positive + Negative:</strong> Nyatakan apa yang harus dilakukan, diikuti larangan eksplisit (JANGAN, TIDAK BOLEH).</p>
+                </div>
+                <div class="tip-item">
+                  <span class="tip-num">2</span>
+                  <p><strong>Handle Ambiguitas:</strong> Instruksikan: "Jika konteks tidak cukup, katakan 'Saya tidak punya informasi yang cukup'."</p>
+                </div>
+                <div class="tip-item">
+                  <span class="tip-num">3</span>
+                  <p><strong>Delimiter Tags:</strong> Gunakan XML tags untuk pisahkan instruksi, system data, dan user input.</p>
+                </div>
+                <div class="tip-item">
+                  <span class="tip-num">4</span>
+                  <p><strong>Version Control:</strong> Perlakukan system prompt seperti production code — version, test, deploy.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="container">
+    <nav class="chapter-nav">
+      <a href="context-engineering.html" class="chapter-btn">← Bab 02: Context Engineering</a>
+      <a href="ai-skills.html" class="chapter-btn next">Lanjut ke Bab 04: AI Skills →</a>
+    </nav>
+  </div>
+
+  <!-- ============================== -->
+  <!-- FOOTER -->
+  <!-- ============================== -->
+  <footer id="footer" class="footer-section">
+    <div class="container">
+      <div class="footer-summary reveal" data-reveal="fade-up">
+        <h2 class="footer-title">Ringkasan — 5 Kunci Menguasai AI</h2>
+        <div class="summary-grid">
+          <div class="summary-item">
+            <span class="summary-num">01</span>
+            <p><strong>Gunakan RACE Framework</strong> — Structure setiap prompt dengan Role, Action, Context, Expectation.</p>
+          </div>
+          <div class="summary-item">
+            <span class="summary-num">02</span>
+            <p><strong>Engineer Context, bukan hanya Prompt</strong> — Rancang seluruh ekosistem informasi di sekitar model.</p>
+          </div>
+          <div class="summary-item">
+            <span class="summary-num">03</span>
+            <p><strong>Kuasai teknik lanjutan</strong> — Chain of Thought, Few-Shot, dan System Prompt yang terstruktur.</p>
+          </div>
+          <div class="summary-item">
+            <span class="summary-num">04</span>
+            <p><strong>Leverage Skills & Connectors</strong> — Kombinasikan skills modular dan hubungkan AI ke tools via MCP.</p>
+          </div>
+          <div class="summary-item">
+            <span class="summary-num">05</span>
+            <p><strong>Tune parameter sesuai tugas</strong> — Low temperature untuk kode, tinggi untuk brainstorming.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-cta reveal" data-reveal="fade-up">
+        <p class="cta-text">Sekarang Anda punya semua bekal. Mulai praktik!</p>
+        <a href="#" class="footer-btn">Kembali ke Atas ↑</a>
+      </div>
+
+      <div class="footer-bottom">
+        <p>Anti Gravity Project — Panduan Cara Menggunakan AI © 2025</p>
+        <p class="footer-link">
+          <a href="https://github.com/artificialtesting088-alt/004.Anti_Gravity_002_Project_Cara_Penggunaan_AI" target="_blank" rel="noopener">
+            GitHub Repository ↗
+          </a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

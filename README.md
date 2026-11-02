@@ -64,21 +64,34 @@ Website tutorial interaktif, mewah, dan komprehensif tentang cara menggunakan Ar
 
 ---
 
-## 📂 Struktur Berkas
+## 📂 Arsitektur Multi-Page & Struktur Berkas
+
+Web ini menggunakan arsitektur **Multi-Page Website** di mana setiap modul pembelajaran memiliki halaman dan rute mandiri yang terhubung melalui navigasi global:
 
 ```
 004.Anti_Gravity_002_Project_Cara_Penggunaan_AI/
-├── index.html          # Halaman utama tutorial single-page
-├── README.md           # Dokumentasi repositori
+├── index.html                 # Portal Beranda & Kurikulum 6 Modul
+├── race-framework.html        # Bab 01: RACE Framework (Role, Action, Context, Expectation)
+├── context-engineering.html   # Bab 02: Context Engineering & Anatomi 7 Komponen Window
+├── teknik-lanjutan.html       # Bab 03: Teknik Lanjutan (CoT, Few-Shot, System Prompt)
+├── ai-skills.html             # Bab 04: AI Skills & Autonomous Chaining Workflows
+├── connectors.html            # Bab 05: Connectors & Model Context Protocol (MCP)
+├── parameter.html             # Bab 06: Parameter Tuning (Temperature, Top-P, Penalties)
+├── .nojekyll                  # GitHub Pages bypass Jekyll
+├── .github/workflows/deploy.yml # GitHub Actions auto-deploy pipeline
+├── README.md                  # Dokumentasi repositori
 ├── css/
-│   └── style.css       # Design system lengkap, variabel, & responsivitas
+│   └── style.css              # Design system lengkap, variabel, & responsivitas
 ├── js/
-│   └── main.js         # Engine interaktivitas vanilla JS (zero dependencies)
+│   └── main.js                # Engine interaktivitas vanilla JS (zero dependencies)
 └── assets/
-    ├── hero-bg.jpg     # Background neural network abstrak biru & putih
-    ├── brain-bg.jpg    # Background geometric brain node network
-    └── wave-bg.jpg     # Background flowing data waves royal blue
+    ├── hero-bg.jpg            # Background neural network abstrak biru & putih
+    ├── brain-bg.jpg           # Background geometric brain node network
+    └── wave-bg.jpg            # Background flowing data waves royal blue
 ```
+
+🌐 **Live Demo (GitHub Pages):**
+[https://artificialtesting088-alt.github.io/004.Anti_Gravity_002_Project_Cara_Penggunaan_AI/](https://artificialtesting088-alt.github.io/004.Anti_Gravity_002_Project_Cara_Penggunaan_AI/)
 
 ---
 

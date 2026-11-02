@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connectors & Model Context Protocol (MCP) — Panduan Lengkap Menguasai AI</title>
+  <meta name="description" content="Panduan integrasi AI ke database eksternal, API SaaS, file system, dan standar industri Model Context Protocol (MCP) dari Anthropic.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress"></div>
+
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon">◆</span> Menguasai<span class="logo-accent">AI</span>
+      </a>
+      <button id="menu-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="race-framework.html" class="nav-link">RACE Framework</a></li>
+        <li><a href="context-engineering.html" class="nav-link">Context Engineering</a></li>
+        <li><a href="teknik-lanjutan.html" class="nav-link">Teknik Lanjutan</a></li>
+        <li><a href="ai-skills.html" class="nav-link">AI Skills</a></li>
+        <li><a href="connectors.html" class="nav-link">Connectors</a></li>
+        <li><a href="parameter.html" class="nav-link">Parameter</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Subpage Hero Banner -->
+  <header class="subpage-hero">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Beranda</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>Bab 05: Connectors & MCP</span>
+      </div>
+      <div class="subpage-badge">MODUL 05 • ECOSYSTEM & PROTOCOL</div>
+      <h1 class="subpage-title">Connectors & Model Context Protocol (MCP)</h1>
+      <p class="subpage-subtitle">Menghubungkan model kecerdasan buatan ke database internal, API pihak ketiga, dan sistem file secara terstandarisasi, aman, dan auditable.</p>
+      <div class="subpage-meta">
+        <div class="meta-item">⏱️ Waktu baca: ~11 menit</div><div class="meta-item">🔌 Tingkat: Lanjutan</div><div class="meta-item">⚙️ Contoh Config JSON</div><div class="meta-item">🛡️ Arsitektur Host-Server</div>
+      </div>
+    </div>
+  </header>
+<section id="connectors" class="section connectors-section">
+    <div class="parallax-bg" style="background-image: url('assets/wave-bg.jpg');"></div>
+    <div class="section-overlay"></div>
+    <div class="container">
+
+      <!-- What are Connectors -->
+      <div class="connector-intro reveal" data-reveal="fade-up">
+        <p class="big-text">Connector memberikan AI tiga kemampuan kritis:</p>
+        <div class="capability-trio">
+          <div class="cap-item">
+            <div class="cap-icon">👁️</div>
+            <h4>Perception</h4>
+            <p>Inspect database, baca file, fetch web pages, observasi sistem metrik</p>
+          </div>
+          <div class="cap-item">
+            <div class="cap-icon">⚡</div>
+            <h4>Actionability</h4>
+            <p>Trigger workflow, kirim pesan, commit kode, invoke external API</p>
+          </div>
+          <div class="cap-item">
+            <div class="cap-icon">🎯</div>
+            <h4>Grounding</h4>
+            <p>Akses data enterprise privat dan real-time untuk eliminasi halusinasi</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Connector Types -->
+      <div class="connector-types reveal" data-reveal="fade-up">
+        <h3 class="subsection-title">Jenis-Jenis Connector</h3>
+        <div class="connector-grid">
+          <div class="conn-card">
+            <div class="conn-icon">🔌</div>
+            <h4>MCP Servers</h4>
+            <p>Protokol standar terbuka untuk komunikasi agent-to-tool. JSON-RPC 2.0 via stdio atau SSE.</p>
+          </div>
+          <div class="conn-card">
+            <div class="conn-icon">🌐</div>
+            <h4>API Connectors</h4>
+            <p>REST, GraphQL, gRPC — wrapper yang mengkonversi JSON function-calling ke HTTP requests.</p>
+          </div>
+          <div class="conn-card">
+            <div class="conn-icon">🧩</div>
+            <h4>Plugins & Extensions</h4>
+            <p>Integrasi platform-specific: ChatGPT Actions, Copilot plugins, VS Code extensions.</p>
+          </div>
+          <div class="conn-card">
+            <div class="conn-icon">💾</div>
+            <h4>Database Connectors</h4>
+            <p>SQL (PostgreSQL, MySQL), NoSQL (MongoDB), Vector DB (Pinecone, Qdrant) untuk RAG.</p>
+          </div>
+          <div class="conn-card">
+            <div class="conn-icon">📁</div>
+            <h4>File System</h4>
+            <p>Baca/tulis file lokal, cloud storage (S3, Google Drive), parsing dokumen (PDF, DOCX).</p>
+          </div>
+          <div class="conn-card">
+            <div class="conn-icon">💬</div>
+            <h4>Communication</h4>
+            <p>Slack, Teams, Discord, Email — kirim notifikasi, search channel history, post updates.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- MCP Deep Dive -->
+      <div class="mcp-deep reveal" data-reveal="fade-up">
+        <h3 class="subsection-title">🔌 Model Context Protocol (MCP) — Deep Dive</h3>
+        <p class="mcp-tagline">"USB-C untuk Aplikasi AI" — standar universal yang menghubungkan AI model mana pun ke tool mana pun.</p>
+        
+        <div class="mcp-architecture">
+          <div class="mcp-flow">
+            <div class="mcp-node host">
+              <strong>MCP Host</strong>
+              <span>Claude, VS Code, Cursor, Antigravity</span>
+            </div>
+            <div class="mcp-arrow">↔</div>
+            <div class="mcp-node client">
+              <strong>MCP Client</strong>
+              <span>Maintains connections</span>
+            </div>
+            <div class="mcp-arrow">↔</div>
+            <div class="mcp-node server">
+              <strong>MCP Server</strong>
+              <span>Exposes Tools, Resources, Prompts</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mcp-primitives">
+          <div class="prim-card">
+            <div class="prim-header">📄 Resources</div>
+            <p><strong>Client/App Controlled</strong> — Data read-only yang di-inject ke prompt (file contents, database schemas, logs).</p>
+          </div>
+          <div class="prim-card">
+            <div class="prim-header">🛠️ Tools</div>
+            <p><strong>Model Controlled</strong> — Fungsi yang bisa dipanggil LLM. Model memutuskan kapan dan dengan argumen apa.</p>
+          </div>
+          <div class="prim-card">
+            <div class="prim-header">📝 Prompts</div>
+            <p><strong>User Controlled</strong> — Template prompt yang bisa di-trigger user untuk memulai tugas terstruktur.</p>
+          </div>
+        </div>
+
+        <!-- MCP Config Example -->
+        <div class="mcp-config">
+          <h4>Contoh Konfigurasi MCP:</h4>
+          <div class="code-block large">
+            <button class="copy-btn">Salin</button>
+            <pre><code>{
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_TOKEN": "ghp_your_token_here"
+      }
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y", 
+        "@modelcontextprotocol/server-filesystem", 
+        "/path/to/allowed/directory"
+      ]
+    },
+    "postgres": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres"],
+      "env": {
+        "DATABASE_URL": "postgresql://user:pass@localhost/mydb"
+      }
+    }
+  }
+}</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Connector Best Practices -->
+      <div class="conn-best reveal" data-reveal="fade-up">
+        <h3 class="subsection-title">Best Practices Connector</h3>
+        <div class="best-grid">
+          <div class="best-item">
+            <span class="best-num">01</span>
+            <h4>Principle of Least Privilege</h4>
+            <p>Batasi database connector ke read-only. Minta konfirmasi manusia sebelum aksi destruktif.</p>
+          </div>
+          <div class="best-item">
+            <span class="best-num">02</span>
+            <h4>Schema Minimization</h4>
+            <p>50+ tool schema sekaligus menurunkan reasoning model. Gunakan dynamic tool filtering.</p>
+          </div>
+          <div class="best-item">
+            <span class="best-num">03</span>
+            <h4>Idempotency</h4>
+            <p>Tool yang mutate state harus accept idempotency key atau pre-flight check.</p>
+          </div>
+          <div class="best-item">
+            <span class="best-num">04</span>
+            <h4>Resilience</h4>
+            <p>Implement rate limiter dan exponential backoff. Return error string yang informatif.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="container">
+    <nav class="chapter-nav">
+      <a href="ai-skills.html" class="chapter-btn">← Bab 04: AI Skills</a>
+      <a href="parameter.html" class="chapter-btn next">Lanjut ke Bab 06: Parameter Tuning →</a>
+    </nav>
+  </div>
+
+  <!-- ============================== -->
+  <!-- FOOTER -->
+  <!-- ============================== -->
+  <footer id="footer" class="footer-section">
+    <div class="container">
+      <div class="footer-summary reveal" data-reveal="fade-up">
+        <h2 class="footer-title">Ringkasan — 5 Kunci Menguasai AI</h2>
+        <div class="summary-grid">
+          <div class="summary-item">
+            <span class="summary-num">01</span>
+            <p><strong>Gunakan RACE Framework</strong> — Structure setiap prompt dengan Role, Action, Context, Expectation.</p>
+          </div>
+          <div class="summary-item">
+            <span class="summary-num">02</span>
+            <p><strong>Engineer Context, bukan hanya Prompt</strong> — Rancang seluruh ekosistem informasi di sekitar model.</p>
+          </div>
+          <div class="summary-item">
+            <span class="summary-num">03</span>
+            <p><strong>Kuasai teknik lanjutan</strong> — Chain of Thought, Few-Shot, dan System Prompt yang terstruktur.</p>
+          </div>
+          <div class="summary-item">
+            <span class="summary-num">04</span>
+            <p><strong>Leverage Skills & Connectors</strong> — Kombinasikan skills modular dan hubungkan AI ke tools via MCP.</p>
+          </div>
+          <div class="summary-item">
+            <span class="summary-num">05</span>
+            <p><strong>Tune parameter sesuai tugas</strong> — Low temperature untuk kode, tinggi untuk brainstorming.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-cta reveal" data-reveal="fade-up">
+        <p class="cta-text">Sekarang Anda punya semua bekal. Mulai praktik!</p>
+        <a href="#" class="footer-btn">Kembali ke Atas ↑</a>
+      </div>
+
+      <div class="footer-bottom">
+        <p>Anti Gravity Project — Panduan Cara Menggunakan AI © 2025</p>
+        <p class="footer-link">
+          <a href="https://github.com/artificialtesting088-alt/004.Anti_Gravity_002_Project_Cara_Penggunaan_AI" target="_blank" rel="noopener">
+            GitHub Repository ↗
+          </a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

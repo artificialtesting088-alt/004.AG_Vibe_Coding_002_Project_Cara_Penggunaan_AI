@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parameter Tuning — Panduan Lengkap Menguasai AI</title>
+  <meta name="description" content="Panduan visual konfigurasi Temperature, Top-P, Frequency Penalty, dan tabel rekomendasi parameter AI sesuai use case industri.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress"></div>
+
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon">◆</span> Menguasai<span class="logo-accent">AI</span>
+      </a>
+      <button id="menu-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="race-framework.html" class="nav-link">RACE Framework</a></li>
+        <li><a href="context-engineering.html" class="nav-link">Context Engineering</a></li>
+        <li><a href="teknik-lanjutan.html" class="nav-link">Teknik Lanjutan</a></li>
+        <li><a href="ai-skills.html" class="nav-link">AI Skills</a></li>
+        <li><a href="connectors.html" class="nav-link">Connectors</a></li>
+        <li><a href="parameter.html" class="nav-link">Parameter</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Subpage Hero Banner -->
+  <header class="subpage-hero">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Beranda</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>Bab 06: Parameter Tuning</span>
+      </div>
+      <div class="subpage-badge">MODUL 06 • INFERENCE CONTROL</div>
+      <h1 class="subpage-title">Parameter Tuning & Model Control</h1>
+      <p class="subpage-subtitle">Kendalikan distribusi probabilitas token dan spektrum kreativitas model dengan memahami Temperature, Top-P, serta Penalties.</p>
+      <div class="subpage-meta">
+        <div class="meta-item">⏱️ Waktu baca: ~7 menit</div><div class="meta-item">🎛️ Tingkat: Fundamental</div><div class="meta-item">🌡️ Visual Skala Suhu</div><div class="meta-item">📊 Tabel Rekomendasi Parameter</div>
+      </div>
+    </div>
+  </header>
+<section id="tuning" class="section tuning-section">
+    <div class="container">
+
+      <!-- Temperature Visual -->
+      <div class="temp-visual reveal" data-reveal="fade-up">
+        <h3 class="subsection-title">🌡️ Temperature — Mengontrol Randomness</h3>
+        <div class="temp-scale">
+          <div class="temp-bar">
+            <div class="temp-zone deterministic">
+              <span class="temp-val">0.0</span>
+              <span class="temp-label">Deterministic</span>
+            </div>
+            <div class="temp-zone focused">
+              <span class="temp-val">0.3</span>
+              <span class="temp-label">Focused</span>
+            </div>
+            <div class="temp-zone balanced">
+              <span class="temp-val">0.7</span>
+              <span class="temp-label">Balanced</span>
+            </div>
+            <div class="temp-zone creative">
+              <span class="temp-val">1.0</span>
+              <span class="temp-label">Creative</span>
+            </div>
+            <div class="temp-zone chaotic">
+              <span class="temp-val">2.0</span>
+              <span class="temp-label">Chaotic</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Parameter Table -->
+      <div class="param-table-section reveal" data-reveal="fade-up">
+        <h3 class="subsection-title">📊 Rekomendasi Parameter per Use Case</h3>
+        <div class="comparison-table-wrap">
+          <table class="comparison-table param-table">
+            <thead>
+              <tr>
+                <th>Use Case</th>
+                <th>Temperature</th>
+                <th>Top-P</th>
+                <th>Freq Penalty</th>
+                <th>Rationale</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>💻 Code Generation</strong></td>
+                <td><code>0.0 - 0.2</code></td>
+                <td><code>0.9</code></td>
+                <td><code>0.0</code></td>
+                <td>Eliminasi syntax hallucination, maksimalkan determinisme</td>
+              </tr>
+              <tr>
+                <td><strong>📋 Data Extraction / JSON</strong></td>
+                <td><code>0.0</code></td>
+                <td><code>1.0</code></td>
+                <td><code>0.0</code></td>
+                <td>Strict schema adherence, predictability absolut</td>
+              </tr>
+              <tr>
+                <td><strong>🔍 Analisis / Root Cause</strong></td>
+                <td><code>0.2 - 0.3</code></td>
+                <td><code>0.95</code></td>
+                <td><code>0.1</code></td>
+                <td>Presisi faktual tinggi dengan transisi logis yang smooth</td>
+              </tr>
+              <tr>
+                <td><strong>✍️ Technical Writing</strong></td>
+                <td><code>0.5 - 0.7</code></td>
+                <td><code>0.9</code></td>
+                <td><code>0.2</code></td>
+                <td>Prosa fluent dan profesional tanpa phrasing aneh</td>
+              </tr>
+              <tr>
+                <td><strong>🎨 Brainstorming / Creative</strong></td>
+                <td><code>0.8 - 1.1</code></td>
+                <td><code>0.95</code></td>
+                <td><code>0.4</code></td>
+                <td>Variansi tinggi, vocabulary diverse, metafora novel</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Other Parameters -->
+      <div class="other-params reveal" data-reveal="fade-up">
+        <h3 class="subsection-title">Parameter Lainnya</h3>
+        <div class="params-grid">
+          <div class="param-card">
+            <h4>Top-P (Nucleus Sampling)</h4>
+            <p>Sampling hanya dari token terkecil yang probabilitas kumulatifnya melebihi threshold P. Adaptif secara kontekstual — saat confidence tinggi, hanya 1-2 token dipertimbangkan.</p>
+            <div class="param-range">Range: <code>0.0 - 1.0</code> | Default: <code>0.9</code></div>
+          </div>
+          <div class="param-card">
+            <h4>Presence Penalty</h4>
+            <p>Penalti pada token yang sudah muncul setidaknya sekali. Mendorong model membahas topik baru dan menghindari pengulangan.</p>
+            <div class="param-range">Range: <code>-2.0 - 2.0</code> | Default: <code>0.0</code></div>
+          </div>
+          <div class="param-card">
+            <h4>Frequency Penalty</h4>
+            <p>Penalti proporsional terhadap frekuensi kemunculan token. Semakin sering muncul, semakin besar penalti — mencegah loop dan repetisi.</p>
+            <div class="param-range">Range: <code>-2.0 - 2.0</code> | Default: <code>0.0</code></div>
+          </div>
+          <div class="param-card">
+            <h4>Max Tokens</h4>
+            <p>Batas maksimum panjang response. Berguna untuk mengontrol output length dan biaya. Tidak mempengaruhi kualitas reasoning.</p>
+            <div class="param-range">Range: <code>1 - model limit</code></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="container">
+    <nav class="chapter-nav">
+      <a href="connectors.html" class="chapter-btn">← Bab 05: Connectors & MCP</a>
+      <a href="index.html" class="chapter-btn next">Selesai • Kembali ke Beranda ↻ →</a>
+    </nav>
+  </div>
+
+  <!-- ============================== -->
+  <!-- FOOTER -->
+  <!-- ============================== -->
+  <footer id="footer" class="footer-section">
+    <div class="container">
+      <div class="footer-summary reveal" data-reveal="fade-up">
+        <h2 class="footer-title">Ringkasan — 5 Kunci Menguasai AI</h2>
+        <div class="summary-grid">
+          <div class="summary-item">
+            <span class="summary-num">01</span>
+            <p><strong>Gunakan RACE Framework</strong> — Structure setiap prompt dengan Role, Action, Context, Expectation.</p>
+          </div>
+          <div class="summary-item">
+            <span class="summary-num">02</span>
+            <p><strong>Engineer Context, bukan hanya Prompt</strong> — Rancang seluruh ekosistem informasi di sekitar model.</p>
+          </div>
+          <div class="summary-item">
+            <span class="summary-num">03</span>
+            <p><strong>Kuasai teknik lanjutan</strong> — Chain of Thought, Few-Shot, dan System Prompt yang terstruktur.</p>
+          </div>
+          <div class="summary-item">
+            <span class="summary-num">04</span>
+            <p><strong>Leverage Skills & Connectors</strong> — Kombinasikan skills modular dan hubungkan AI ke tools via MCP.</p>
+          </div>
+          <div class="summary-item">
+            <span class="summary-num">05</span>
+            <p><strong>Tune parameter sesuai tugas</strong> — Low temperature untuk kode, tinggi untuk brainstorming.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-cta reveal" data-reveal="fade-up">
+        <p class="cta-text">Sekarang Anda punya semua bekal. Mulai praktik!</p>
+        <a href="#" class="footer-btn">Kembali ke Atas ↑</a>
+      </div>
+
+      <div class="footer-bottom">
+        <p>Anti Gravity Project — Panduan Cara Menggunakan AI © 2025</p>
+        <p class="footer-link">
+          <a href="https://github.com/artificialtesting088-alt/004.Anti_Gravity_002_Project_Cara_Penggunaan_AI" target="_blank" rel="noopener">
+            GitHub Repository ↗
+          </a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
