@@ -5452,41 +5452,79 @@ section.section-alt {
    AWARD-WINNING LUXURY SAAS UI (Linear / Stripe Design System)
    ========================================================================== */
 
-/* 1. Navbar Search Trigger (⌘K Pill) */
+/* 1. Navbar Search Trigger (Sleek Right-Aligned Pill) */
+.nav-search-item {
+  display: flex;
+  align-items: center;
+  margin-left: 0.75rem;
+}
+
 .nav-search-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.4rem 0.85rem;
-  background: rgba(0, 0, 255, 0.05);
-  border: 1px solid rgba(0, 0, 255, 0.18);
-  border-radius: 12px;
-  color: #444444;
-  font-size: 0.85rem;
-  font-weight: 600;
+  gap: 0.45rem;
+  padding: 0.35rem 0.75rem;
+  background: rgba(0, 0, 255, 0.04);
+  border: 1px solid rgba(0, 0, 255, 0.16);
+  border-radius: 9999px;
+  color: #333333;
+  font-size: 0.82rem;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  margin-left: 0.5rem;
+  font-family: var(--font-sans);
+  line-height: 1;
 }
 
 .nav-search-btn:hover {
-  background: rgba(0, 0, 255, 0.1);
+  background: rgba(0, 0, 255, 0.08);
   border-color: #0000FF;
   color: #0000FF;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 255, 0.12);
+  box-shadow: 0 4px 14px rgba(0, 0, 255, 0.12);
+}
+
+.search-svg {
+  stroke: #0000FF;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.nav-search-btn:hover .search-svg {
+  transform: scale(1.1);
+}
+
+.search-text {
+  font-weight: 500;
+  letter-spacing: -0.01em;
 }
 
 .search-kbd {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 700;
+  font-size: 0.7rem;
+  font-weight: 600;
   background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 255, 0.2);
-  border-radius: 6px;
-  padding: 0.1rem 0.4rem;
+  border: 1px solid rgba(0, 0, 255, 0.22);
+  border-radius: 5px;
+  padding: 0.15rem 0.4rem;
   color: #0000FF;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  line-height: 1;
+  box-shadow: 0 1px 2px rgba(0, 0, 255, 0.06);
+}
+
+@media (max-width: 768px) {
+  .nav-search-item {
+    margin-left: 0;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+  .nav-search-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    border-radius: 12px;
+  }
 }
 
 /* 2. Spotlight Card Flashlight Glow (Linear Effect) */

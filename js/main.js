@@ -1042,13 +1042,24 @@ const SEARCH_DATABASE = [
 ];
 
 function initCommandPalette() {
+  const isMac = (typeof navigator !== 'undefined' && /Mac|iPhone|iPod|iPad/.test(navigator.platform || navigator.userAgent));
+
+  // Update navbar shortcut badge text to match user's OS
+  const kbdLabels = document.querySelectorAll('.search-kbd, #search-kbd-label');
+  kbdLabels.forEach(k => {
+    k.textContent = isMac ? '⌘K' : 'Ctrl K';
+  });
+
   if (!document.getElementById('command-modal')) {
     const modalHTML = `
       <div id="command-modal" class="command-modal" aria-hidden="true">
         <div class="command-backdrop"></div>
         <div class="command-dialog">
           <div class="command-header">
-            <span class="command-search-icon">🔍</span>
+            <svg class="command-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0000FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
             <input type="text" id="command-input" class="command-input" placeholder="Cari materi, teknik, contoh prompt, atau modul... (Esc untuk menutup)" autocomplete="off">
             <button id="command-close" class="command-close-btn" aria-label="Tutup pencarian">Esc</button>
           </div>
