@@ -2647,11 +2647,11 @@ section.section-alt {
   position: absolute;
   inset: -15% 0;
   background-size: cover;
-  background-position: center 20%;
+  background-position: center center;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.90;
-  filter: contrast(1.12) saturate(1.25);
+  opacity: 0.95;
+  filter: contrast(1.12) saturate(1.22);
   will-change: transform;
 }
 
@@ -2800,14 +2800,17 @@ section.section-alt {
   letter-spacing: -0.035em;
   margin-bottom: 1.5rem;
   min-height: 1.2em;
+  text-shadow: 0 4px 30px rgba(255, 255, 255, 0.95), 0 2px 10px rgba(255, 255, 255, 0.9);
 }
 
 .hero-subtitle {
   font-size: clamp(1.1rem, 2vw, 1.35rem);
-  color: #444444;
+  color: #111111;
+  font-weight: 500;
   line-height: 1.6;
   margin: 0 auto 2.5rem;
   max-width: 720px;
+  text-shadow: 0 2px 20px rgba(255, 255, 255, 0.95);
 }
 
 .hero-stats {
